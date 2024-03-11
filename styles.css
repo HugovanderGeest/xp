@@ -80,6 +80,10 @@ html {
     background-size: 25px;
 }
 
+.mar {
+margin-left: 10px;
+}
+
 .maximize-button {
     background-image: url('big.png'); /* Update path to your icon */
     background-size: 25px;
@@ -283,3 +287,35 @@ body.page-loaded #preloader {
     box-shadow: 0 0 10px rgba(0,0,0,0.5); /* Example styling */
     /* Add any other styles you want for full-screen mode */
 }
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeOut {
+    from { opacity: 1; transform: translateY(0); }
+    to { opacity: 0; transform: translateY(20px); }
+}
+
+.window.opening {
+    animation: fadeIn 0.5s forwards;
+}
+
+.window.closing {
+    animation: fadeOut 0.5s forwards;
+}
+
+.minimized {
+    display: none; /* Now the window is not displayed after minimizing */
+}
+
+.minimize-button {
+    background-image: url('min.png'); /* Update path to your ico */
+    background-size: 25px;
+}
+
+.minimize-button:hover {
+    filter: brightness(85%);
+}
+

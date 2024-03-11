@@ -11,9 +11,22 @@ function closeWindow(id) {
 }
 
 function minimizeWindow(id) {
-    // Hier zou je functionaliteit kunnen toevoegen om een venster te minimaliseren.
-    alert('Minimaliseren is nog niet geïmplementeerd.');
+    var window = document.getElementById('window-' + id);
+    var taskbarItem = document.querySelector('.taskbar-item[data-window="' + id + '"]');
+
+    window.classList.add('minimizing');
+
+    setTimeout(function() {
+        window.style.display = 'none';
+        window.classList.remove('minimizing');
+        window.classList.add('minimized');
+    }); // This duration should match the CSS animation duration
+
+    // Keep the taskbar item active but don't show the window
+    taskbarItem.classList.add('active');
 }
+
+
 
 function toggleStartMenu() {
     var startMenu = document.getElementById('start-menu');
@@ -127,6 +140,12 @@ function openWindow(id) {
     var taskbarItem = document.querySelector('.taskbar-item[data-window="' + id + '"]');
     var taskbarText = taskbarItem.querySelector('.taskbar-text');
 
+    if (window.classList.contains('closing')) {
+        window.classList.remove('closing');
+    }
+    window.classList.add('opening');
+
+
     // Only toggle the clicked window, do not close others
     if (window.style.display === 'block') {
         // If the window is already open, close it
@@ -159,12 +178,24 @@ function closeWindow(id) {
     var window = document.getElementById('window-' + id);
     var taskbarItem = document.querySelector('.taskbar-item[data-window="' + id + '"]');
     var taskbarText = taskbarItem.querySelector('.taskbar-text');
+    window.classList.add('closing');
 
     // Close the window and revert its taskbar item to non-active
     window.style.display = 'none';
     taskbarItem.classList.remove('active');
     taskbarText.style.display = 'none'; // Hide the text for the non-active icon
+
+
+    setTimeout(function() {
+        // Wait for the animation to finish before hiding the window
+        window.style.display = 'none';
+    }, 200); // this should be the same as your CSS animation duration
+
+    var taskbarItem = document.querySelector('.taskbar-item[data-window="' + id + '"]');
+    var taskbarText = taskbarItem.querySelector('.taskbar-text');
+
 }
+
 
 
 // Wait for the full page to load
