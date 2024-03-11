@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="nl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Windows XP Desktop</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+
+    <div id="preloader">
+        <img src="windows_xp_boot_screen_animation_in_hd_by_lukeinatordude_db6dw1k-pre.jpg" alt="Windows XP Loading">
+        <div class="progress-bar"></div>
+    </div>
+
+
+    <div id="desktop">
+        <!-- Startmenu -->
+        <div id="start-menu" class="hidden">
+            <div class="menu-item">My Documents</div>
+            <!-- Voeg meer menu-items toe zoals nodig -->
+        </div>
+
+        <!-- Taakbalk -->
+        <div id="taskbar">
+            <div id="start-button" onclick="toggleStartMenu()">Start</div>
+            <div class="taskbar-icons">
+                <div class="taskbar-item" data-window="my-computer" onclick="openWindow('my-computer')">
+                    <img src="XPIcon.webp" alt="My Computer" class="taskbar-icon">
+                    <span class="taskbar-text">My Computer</span>
+                </div>
+                <div class="taskbar-item" data-window="edge" onclick="openWindow('edge')">
+                    <img src="edge.png" alt="Edge" class="taskbar-icon">
+                    <span class="taskbar-text">Microsoft Edge</span>
+                </div>
+                <div class="taskbar-item" data-window="msn" onclick="openWindow('msn')" style="background-image: url('ms.png');">
+                    <img src="msn.webp" alt="MSN" class="taskbar-icon">
+                    <span class="taskbar-text">MSN</span>
+                </div>
+                <!-- More taskbar items -->
+            </div>
+            <div class="system-tray">
+
+                <div id="clock" class="time">
+                </div>
+            </div>
+        </div>
+
+        <div class="icon" data-window="my-computer" style="background-image: url('XPIcon.webp');"
+            onclick="openWindow('my-computer')">
+            <p>Mijn Computer</p>
+        </div>
+
+
+        <div class="icon" onclick="openWindow('edge')" style="background-image: url('edge.png');">
+            <p>Edge</p>
+        </div>
+
+        <div class="icon" onclick="openWindow('msn')" style="background-image: url('msn.webp');">
+            <p>Contact</p>
+        </div>
+
+
+        <!-- Vensters -->
+        <div id="window-edge" class="window">
+            <div class="title-bar" id="window-edge-header">
+                <div class="title">
+                    <img src="edge.png" alt="Edge" class="taskbar-icon">
+                    Edge
+                </div>
+                <div class="window-controls">
+                    <button class="minimize-button" onclick="toggleFullscreen('edge')"></button>
+                    <button class="maximize-button" onclick="toggleFullscreen('edge')"></button>
+                    <button class="close-button" onclick="closeWindow('edge')"></button>
+                </div>
+            </div>
+            <div class="window-content">
+                <p>Dit is het Edge-venster. Hier kan content komen zoals een ingebedde webpagina of andere informatie.
+                </p>
+            </div>
+        </div>
+        
+        <div id="window-my-computer" class="window">
+            <div class="title-bar" id="window-my-computer-header">
+                <div class="title"> 
+                    <img src="XPIcon.webp" alt="My Computer" class="taskbar-icon">
+                    Mijn Computer
+                </div>
+                <div class="window-controls">
+                        <button class="minimize-button" onclick="toggleFullscreen('my-computer')"></button>
+                        <button class="maximize-button" onclick="toggleFullscreen('my-computer')"></button>
+                        <button class="close-button" onclick="closeWindow('my-computer')"></button>
+                    </div>
+            </div>
+            <div class="window-content">
+                <p>Hallo, welkom bij Mijn Computer!</p>
+            </div>
+        </div>
+
+        <div id="window-msn" class="window">
+            <div class="title-bar" id="window-msn-header">
+                <div class="title">                  
+                      <img src="msn.webp" alt="MSN" class="taskbar-icon">
+                    MSN
+                </div>
+                <div class="window-controls">
+                    <button class="minimize-button" onclick="toggleFullscreen('msn')"></button>
+                    <button class="maximize-button" onclick="toggleFullscreen('msn')"></button>
+                    <button class="close-button" onclick="closeWindow('msn')"></button>
+                </div>
+            </div>
+            <div class="window-content">
+                <p>This is the MSN window. You can place content here similar to how you have for My Computer and Edge.</p>
+            </div>
+        </div>
+
+
+    </div>
+
+
+
+    <script src="scripts.js"></script>
+</body>
+
+</html>

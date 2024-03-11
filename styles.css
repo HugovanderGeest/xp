@@ -1,0 +1,285 @@
+body,
+html {
+    height: 100%;
+    margin: 0;
+    font-family: Arial, sans-serif;
+}
+
+#desktop {
+    background: url('cb2d769e251150a6b2330809bd208aa8.gif') no-repeat center center fixed;
+    background-size: cover;
+    overflow: hidden;
+    height: 100%;
+}
+
+#taskbar {
+    background: #255ddc;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    box-shadow: #1746b0 0px 0px 10px 10px inset;
+}
+
+#start-button {
+    background-image: url('start.png');
+    /* Zorg ervoor dat dit pad overeenkomt met waar je het bestand hebt opgeslagen */
+    width: 135px;
+    height: 41px;
+    /* Stel de hoogte in op de hoogte van je afbeelding */
+    background-color: transparent;
+    border: none;
+    background-repeat: no-repeat;
+    cursor: pointer;
+    text-indent: -9999px;
+    /* Verbergt tekst */
+    overflow: hidden;
+    /* Zorgt ervoor dat de tekst buiten de knop niet zichtbaar is */
+}
+
+.window {
+    position: absolute;
+    top: 150px;
+    /* Adjust as needed */
+    left: 150px;
+    /* Adjust as needed */
+    border: 2px solid #0055e5;
+    background-color: #fff;
+    display: none;
+    border-radius: 5px;
+
+}
+
+.title-bar {
+    background: #0055e5;
+    color: white;
+    padding: 5px 1px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: move;
+    box-shadow: #6b76d1 10px 10px 10px -10px inset;
+}
+
+.window-controls button {
+    padding: 0;
+    cursor: pointer;
+    width: 25px;
+    height: 25px;
+    background-repeat: no-repeat;
+    background-position: center;
+    margin-right: 4px;
+    border: 1.5px solid white;
+    border-radius: 5px;
+}
+
+.minimize-button {
+    background-image: url('min.png'); /* Update path to your ico */
+    background-size: 25px;
+}
+
+.maximize-button {
+    background-image: url('big.png'); /* Update path to your icon */
+    background-size: 25px;
+
+}
+
+.close-button {
+    background-image: url('close.png'); /* Update path to your icon */
+    background-size: 25px;
+}
+
+/* Adjust the sizes if necessary */
+.window-controls {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+/* Adding hover effect */
+.window-controls button:hover {
+    filter: brightness(85%);
+}
+
+
+.window-content {
+    padding: 10px;
+}
+
+.icon {
+    width: 50px;
+    height: 50px;
+    background-size: cover;
+    text-align: center;
+    vertical-align: bottom;
+    cursor: pointer;
+    position: relative;
+    top: 30px;
+    left: 30px;
+    background-repeat: no-repeat;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    margin: 30px;
+    margin-top: 50px;
+}
+
+.icon p {
+    font-size: 10px;
+    margin-top: 100px  ;  /* Verwijder de standaardmarge van de paragraaf */
+    position: absolute;
+    bottom: -35px;
+}
+
+#start-menu {
+    position: fixed;
+    bottom: 40px;
+    /* Hoogte van de taakbalk */
+    left: 0;
+    background: #0000ff;
+    width: 300px;
+    /* Breite van het startmenu */
+    padding: 10px;
+    box-sizing: border-box;
+    border: 1px solid #000;
+    display: none;
+    /* Verborgen totdat het wordt geactiveerd */
+}
+
+.menu-item {
+    background: #ccc;
+    padding: 5px;
+    margin-bottom: 3px;
+    cursor: pointer;
+}
+
+.system-tray .time {
+    float: right;
+    padding-right: 10px;
+    color: white;
+}
+
+.hidden {
+    display: none;
+}
+
+#preloader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: black;
+    z-index: 9999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.progress-bar {
+    width: 300px;
+    height: 20px;
+    border: 1px solid #fff;
+    position: relative;
+    animation: load 1s linear forwards;
+}
+
+@keyframes load {
+    from {
+        width: 0;
+    }
+
+    to {
+        width: 300px;
+    }
+}
+
+/* Stijl om de preloader te verbergen */
+.hidden {
+    display: none;
+}
+
+@keyframes load {
+    from {
+        left: -100%;
+    }
+
+    to {
+        left: 100%;
+    }
+}
+
+/* Hide the preloader when the page is loaded */
+body.page-loaded #preloader {
+    display: none;
+}
+
+.taskbar-item.active .taskbar-text {
+    display: inline; /* Show text when active */
+}
+/* Bestaande stijlen... (de rest van je CSS blijft ongewijzigd) */
+.taskbar-icons {
+    display: flex;
+}
+
+.taskbar-icon {
+    margin-right: 5px;
+    /* Of de gewenste ruimte tussen iconen */
+    width: 20px;
+    /* Aanpassen aan de grootte van je iconen */
+    height: 20px;
+    /* Aanpassen aan de grootte van je iconen */
+}
+
+/* Update de klok stijlen voor correcte kleuren */
+.system-tray .time {
+    color: #ffffff;
+    font-family: 'Segoe UI', Tahoma, sans-serif;
+    position: absolute;
+    right: 0;
+    font-size: 12px;
+    top: 0;
+    background-color: #1090e9;
+    padding: 12px;
+    box-shadow: #21b8f3 0px 1px 1px 0px inset;
+    border-left: 2px solid rgb(65, 65, 65);
+    /* Dit is de geschatte grootte van de tekst op de Windows XP taakbalk */
+}
+
+.taskbar-item.active {
+    background-color: #1191e7;
+    padding: 10px;/* Darker blue to show active state */
+    box-shadow: #21b8f3 0px 1px 1px 0px inset;
+}
+
+
+.taskbar-item {
+    display: flex;
+    align-items: center;
+    color: white;
+    padding: 2px 6px;
+    margin-right: 2px;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+.taskbar-icon {
+    width: 16px; /* Set the size of your icon */
+    height: 16px;
+    margin-right: 4px; /* Space between icon and text */
+}
+
+.taskbar-text {
+    font-size: 12px;
+    display: none;
+    white-space: nowrap; /* Ensure text doesn't wrap to the next line */
+}
+
+.fullscreen {
+    overflow: auto; /* Adjust based on your content needs */
+    box-shadow: 0 0 10px rgba(0,0,0,0.5); /* Example styling */
+    /* Add any other styles you want for full-screen mode */
+}
