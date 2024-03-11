@@ -13,43 +13,68 @@ html {
 }
 
 #taskbar {
-    background: #255ddc;
-    position: fixed;
+    background-color: #245EDC;
+    background: linear-gradient(to bottom, #245EDC 0%, #3f8cf3 9%, #245EDC 18%, #245EDC 92%, #1941A5 100%) center/cover no-repeat;
+    position: absolute;
     bottom: 0;
+    left: 0;
     width: 100%;
     height: 40px;
-    display: flex;
-    align-items: center;
-    box-shadow: #1746b0 0px 0px 10px 10px inset;
 }
 
-#start-button {
-    background-image: url('start.png');
-    /* Zorg ervoor dat dit pad overeenkomt met waar je het bestand hebt opgeslagen */
-    width: 135px;
-    height: 41px;
-    /* Stel de hoogte in op de hoogte van je afbeelding */
-    background-color: transparent;
-    border: none;
-    background-repeat: no-repeat;
+#bootScreen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+}
+
+#bootImage {
+    width: 300px;
+    height: auto;
+}
+
+.start-button img {
+    height: 20px;
+    filter: drop-shadow(1px 1px 1px #222);
+    transform: translateY(4px);
+}
+
+.start-button {
+    height: 80%;
+    float: left;
+    color: white;
+    font-size: 22px;
+    line-height: 33px;
+    font-weight: bold;
+    font-style: italic;
+    background: radial-gradient(circle, #5eac56 0%, #3c873c 100%) center/cover no-repeat;
+    box-shadow: 0px 5px 10px #79ce71 inset, 4px 0 8px #3f8cf3;
+    padding: 2px 25px 6px 10px;
+    text-shadow: 1px 1px 3px #222;
+    border-radius: 0px 8px 8px 0px;
+    margin-right: 16px;
     cursor: pointer;
-    text-indent: -9999px;
-    /* Verbergt tekst */
-    overflow: hidden;
-    /* Zorgt ervoor dat de tekst buiten de knop niet zichtbaar is */
 }
 
 .window {
     position: absolute;
-    top: 150px;
+    max-width: 600px;
+    transition: max-width 0.5s, max-height 0.5s; /* Add a transition effect */
+    top: 10px;
     /* Adjust as needed */
     left: 150px;
     /* Adjust as needed */
-    border: 2px solid #0055e5;
+    border: 3px solid #0055e5;
     background-color: #fff;
     display: none;
     border-radius: 5px;
-
 }
 
 .title-bar {
@@ -62,6 +87,16 @@ html {
     cursor: move;
     box-shadow: #6b76d1 10px 10px 10px -10px inset;
 }
+
+
+.full-page {
+    width: 100vw;
+    height: 100vh;
+    max-width: none;
+    max-height: none;
+    /* ... other styles for full-page view ... */
+}
+
 
 .window-controls button {
     padding: 0;
@@ -104,12 +139,15 @@ margin-left: 10px;
 
 /* Adding hover effect */
 .window-controls button:hover {
-    filter: brightness(85%);
+    filter: brightness(125%);
 }
 
 
 .window-content {
-    padding: 10px;
+    display: flex;
+    justify-content: center;
+    height: 100%; /* Set to the height you want */
+
 }
 
 .icon {
@@ -126,8 +164,7 @@ margin-left: 10px;
     display: flex;
     align-items: flex-end;
     justify-content: center;
-    margin: 30px;
-    margin-top: 50px;
+    margin: 40px;
 }
 
 .icon p {
@@ -165,9 +202,6 @@ margin-left: 10px;
     color: white;
 }
 
-.hidden {
-    display: none;
-}
 
 #preloader {
     position: fixed;
@@ -227,6 +261,7 @@ body.page-loaded #preloader {
 /* Bestaande stijlen... (de rest van je CSS blijft ongewijzigd) */
 .taskbar-icons {
     display: flex;
+    height: 100%;
 }
 
 .taskbar-icon {
@@ -246,18 +281,33 @@ body.page-loaded #preloader {
     right: 0;
     font-size: 12px;
     top: 0;
-    background-color: #1090e9;
     padding: 12px;
-    box-shadow: #21b8f3 0px 1px 1px 0px inset;
-    border-left: 2px solid rgb(65, 65, 65);
-    /* Dit is de geschatte grootte van de tekst op de Windows XP taakbalk */
+    background: linear-gradient(to bottom, #1290E9 0%, #19B9F3 9%, #1290E9 18%, #1290E9 92%, #1941A5 100%) center/cover no-repeat;
+    box-shadow: 0px 5px 10px #14A5F0 inset, 0px 5px 10px #333333;
+    border-left: 1px solid #092E51;
+    text-shadow: 1px 1px 2px #222;
 }
 
 .taskbar-item.active {
-    background-color: #1191e7;
-    padding: 10px;/* Darker blue to show active state */
-    box-shadow: #21b8f3 0px 1px 1px 0px inset;
+    width: 150px;
+    margin: 3px 0;
+    float: left;
+    background-color: #4892F7;
+    background: url(btn1.png) no-repeat 0 0;
+    border-radius: 2px;
+    font-family: calibri, monospace;
+    font-size: 14px;
+    line-height: 14px;
+    padding: 8px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    word-wrap: break-word;
+    cursor: pointer;
+    background-size: 100%;
 }
+
+
 
 
 .taskbar-item {
@@ -319,3 +369,148 @@ body.page-loaded #preloader {
     filter: brightness(85%);
 }
 
+/* Keep the existing @keyframes fadeIn and fadeOut for window animations unchanged */
+
+/* New animations for boot screen fade in and fade out */
+@keyframes bootFadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes bootFadeOut {
+    from { opacity: 1; }
+    to { opacity: 0; }
+}
+
+/* Apply the new animations to the boot image and screen */
+#bootImage.bootFadeIn {
+    animation: bootFadeIn 2s forwards;
+}
+
+#bootScreen.bootFadeOut {
+    animation: bootFadeOut 2s forwards;
+}
+
+
+#bootScreen.fadeOut {
+    animation: fadeOut 2s forwards;
+}
+
+#byGoHugo {
+    position: absolute;
+    bottom: 20px; /* Adjust as needed */
+    width: 100%;
+    text-align: center;
+    color: white; /* Choose a color that stands out against your boot screen background */
+    font-family: 'Roboto', sans-serif; /* Use the Roboto font */
+    font-size: 15px; /* Adjust font size as needed */
+    font-weight: 300; /* Use the light weight for a thin appearance */
+}
+
+.linke {
+    text-decoration: none;
+    color: white;
+
+}
+
+.glow-on-hover {
+    width: 200px;
+    height: 200px;
+    border: none;
+    outline: none;
+    color: #fff;
+    background: #111;
+    cursor: pointer;
+    position: relative;
+    z-index: 0;
+    border-radius: 10px;
+    font-size: 30px;
+}
+
+.glow-on-hover:before {
+    content: '';
+    background: linear-gradient(45deg, #ff0000, #ff7300, #fffb00, #48ff00, #00ffd5, #002bff, #7a00ff, #ff00c8, #ff0000);
+    position: absolute;
+    top: -2px;
+    left:-2px;
+    background-size: 400%;
+    z-index: -1;
+    filter: blur(5px);
+    width: calc(100% + 4px);
+    height: calc(100% + 4px);
+    animation: glowing 20s linear infinite;
+    opacity: 0;
+    transition: opacity .3s ease-in-out;
+    border-radius: 10px;
+}
+
+.glow-on-hover:active {
+    color: #000
+}
+
+.glow-on-hover:hover:before {
+    opacity: 1;
+}
+
+.glow-on-hover:after {
+    z-index: -1;
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: #111;
+    left: 0;
+    top: 0;
+    border-radius: 10px;
+}
+
+@keyframes glowing {
+    0% { background-position: 0 0; }
+    50% { background-position: 400% 0; }
+    100% { background-position: 0 0; }
+}
+
+.msn-content {
+    /* Other styling properties */
+    background: linear-gradient(45deg, #000000, #5b58ff, #000000, #5b58ff);
+    background-size: 400% 400%;
+    animation: gradientBackground 15s ease infinite;
+}
+
+@keyframes gradientBackground {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+.msn-icon-list {
+    list-style-type: none;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.msn-icon-list li a {
+    color: #ffffff; /* or any other color */
+    text-decoration: none;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: 0.2s ease-in-out;
+}
+
+.msn-icon-list li a:hover {
+    transform: scale(1.1);
+}
+
+.msn-icon-list i {
+    font-size: 50px; /* Adjust the size as needed */
+    margin-bottom: 4px; /* Space between icon and text */
+}

@@ -5,16 +5,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Windows XP Desktop</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
 </head>
 
 <body>
 
-    <div id="preloader">
-        <img src="windows_xp_boot_screen_animation_in_hd_by_lukeinatordude_db6dw1k-pre.jpg" alt="Windows XP Loading">
-        <div class="progress-bar"></div>
+    <div id="bootScreen">
+        <button class="glow-on-hover" id="startButton">Start</button>
+        <img id="bootImage" src="boot.gif" alt="Windows XP Loading" class="hidden">
+        <div id="byGoHugo">By <a class="linke" href="https://gohugo.nl">GoHugo</a></div> <!-- Add this line -->
     </div>
-
 
     <div id="desktop">
         <!-- Startmenu -->
@@ -25,7 +27,8 @@
 
         <!-- Taakbalk -->
         <div id="taskbar">
-            <div id="start-button" onclick="toggleStartMenu()">Start</div>
+            <div id="start-button" onclick="toggleStartMenu()" class="start-button"><img src="logo.svg"> start</div>
+
             <div class="taskbar-icons">
                 <div class="taskbar-item" data-window="my-computer" onclick="openWindow('my-computer')">
                     <img src="XPIcon.webp" alt="My Computer" class="taskbar-icon">
@@ -33,18 +36,20 @@
                 </div>
                 <div class="taskbar-item" data-window="edge" onclick="openWindow('edge')">
                     <img src="edge.png" alt="Edge" class="taskbar-icon">
-                    <span class="taskbar-text">Microsoft Edge</span>
+                    <span class="taskbar-text">Internet</span>
                 </div>
-                <div class="taskbar-item" data-window="msn" onclick="openWindow('msn')" style="background-image: url('ms.png');">
+                <div class="taskbar-item" data-window="msn" onclick="openWindow('msn')">
                     <img src="msn.webp" alt="MSN" class="taskbar-icon">
-                    <span class="taskbar-text">MSN</span>
+                    <span class="taskbar-text">Contact</span>
                 </div>
-                <!-- More taskbar items -->
+                <div class="taskbar-item" data-window="documents" onclick="openWindow('documents')">
+                    <img src="documents.png" alt="Documents" class="taskbar-icon">
+                    <span class="taskbar-text">Portfolio</span>
+                </div>
             </div>
             <div class="system-tray">
 
-                <div id="clock" class="time">
-                </div>
+                <div id="clock" class="time"> </div>
             </div>
         </div>
 
@@ -55,11 +60,15 @@
 
 
         <div class="icon" onclick="openWindow('edge')" style="background-image: url('edge.png');">
-            <p>Edge</p>
+            <p>Internet</p>
         </div>
 
         <div class="icon" onclick="openWindow('msn')" style="background-image: url('msn.webp');">
             <p>Contact</p>
+        </div>
+
+        <div class="icon" onclick="openWindow('documents')" style="background-image: url('documents.png');">
+            <p>Portfolio</p>
         </div>
 
 
@@ -81,18 +90,18 @@
                 </p>
             </div>
         </div>
-        
+
         <div id="window-my-computer" class="window">
             <div class="title-bar" id="window-my-computer-header">
-                <div class="title"> 
+                <div class="title">
                     <img src="XPIcon.webp" alt="My Computer" class="mar taskbar-icon">
                     Mijn Computer
                 </div>
                 <div class="window-controls">
-                        <button class="minimize-button" onclick="minimizeWindow('my-computer')"></button>
-                        <button class="maximize-button" onclick="toggleFullscreen('my-computer')"></button>
-                        <button class="close-button" onclick="closeWindow('my-computer')"></button>
-                    </div>
+                    <button class="minimize-button" onclick="minimizeWindow('my-computer')"></button>
+                    <button class="maximize-button" onclick="toggleFullscreen('my-computer')"></button>
+                    <button class="close-button" onclick="closeWindow('my-computer')"></button>
+                </div>
             </div>
             <div class="window-content">
                 <p>Hallo, welkom bij Mijn Computer!</p>
@@ -101,8 +110,8 @@
 
         <div id="window-msn" class="window">
             <div class="title-bar" id="window-msn-header">
-                <div class="title">                  
-                      <img src="msn.webp" alt="MSN" class="mar taskbar-icon">
+                <div class="title">
+                    <img src="msn.webp" alt="MSN" class="mar taskbar-icon">
                     MSN
                 </div>
                 <div class="window-controls">
@@ -112,9 +121,51 @@
                 </div>
             </div>
             <div class="window-content">
-                <p>This is the MSN window. You can place content here similar to how you have for My Computer and Edge.</p>
+                <div class="msn-content">
+                    <ul class="msn-icon-list">
+                        <li><a href="https://www.linkedin.com" target="_blank" class="icon icon-linkedin"><i
+                                    class="fab fa-linkedin"></i> </a></li>
+                        <li><a href="whatsapp://send?text=Hello" target="_blank" class="icon icon-whatsapp"><i
+                                    class="fab fa-whatsapp"></i> </a></li>
+                        <li><a href="/path-to-download" class="icon icon-gitlab"><i class="fa-brands fa-github"></i>
+                            </a></li>
+                        <li><a href="/settings" class="icon icon-github"><i class="fa-brands fa-gitlab"></i> </a></li>
+                        <li><a href="mailto:email@example.com" class="icon icon-mail"><i
+                                    class="fas fa-envelope"></i></a></li>
+                        <li><a href="/path-to-download" class="icon icon-gitlab"><i class="fa-brands fa-snapchat"></i>
+                            </a></li>
+                        <li><a href="/path-to-download" class="icon icon-gitlab"><i class="fa-brands fa-instagram"></i>
+                            </a></li>
+                        <li><a href="/path-to-download" class="icon icon-gitlab"><i class="fa-brands fa-discord"></i>
+                            </a></li>
+                        <li><a href="/path-to-download" class="icon icon-gitlab"><i class="fa-brands fa-steam"></i> </a>
+                        </li>
+
+                    </ul>
+                </div>
             </div>
+
+            <div id="window-documents" class="window">
+                <div class="title-bar" id="window-documents-header">
+                    <div class="title">
+                        <img src="documents.png" alt="Documents" class="mar taskbar-icon">
+                        Portfolio
+                    </div>
+                    <div class="window-controls">
+                        <button class="minimize-button" onclick="minimizeWindow('documents')"></button>
+                        <button class="maximize-button" onclick="toggleFullscreen('documents')"></button>
+                        <button class="close-button" onclick="closeWindow('documents')"></button>
+                    </div>
+                </div>
+                <div class="window-content">
+                    <p>This is the Documents window. Here you can display content such as files, folders, or other
+                        information related to documents.</p>
+                </div>
+            </div>
+
+
         </div>
+    </div>
 
 
     </div>

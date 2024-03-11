@@ -1,3 +1,56 @@
+document.getElementById('startButton').addEventListener('click', function() {
+    // Initialize the boot sound
+    var bootSound = new Audio('boot.mp3');
+    // Set the volume to 50%
+    bootSound.volume = 0.5;
+    // Play the boot sound
+    bootSound.play().catch(error => console.error("Audio playback failed:", error));
+
+    // Stop the boot sound after 5 seconds
+    setTimeout(() => {
+        bootSound.pause(); // Stop playback
+        bootSound.currentTime = 0; // Rewind to the start
+    }, 5000); // 5 seconds
+
+    const bootScreen = document.getElementById('bootScreen');
+    const bootImage = document.getElementById('bootImage');
+    // Hide the start button
+    document.getElementById('startButton').classList.add('hidden');
+    // Show and fade in the boot gif
+    bootImage.classList.remove('hidden');
+    bootImage.classList.add('bootFadeIn');
+
+    if (document.documentElement.requestFullscreen) {
+        document.documentElement.requestFullscreen();
+    } else if (document.documentElement.mozRequestFullScreen) { /* Firefox */
+        document.documentElement.mozRequestFullScreen();
+    } else if (document.documentElement.webkitRequestFullscreen) { /* Chrome, Safari & Opera */
+        document.documentElement.webkitRequestFullscreen();
+    } else if (document.documentElement.msRequestFullscreen) { /* IE/Edge */
+        document.documentElement.msRequestFullscreen();
+    }
+
+    // Assuming your GIF plays for around 5 seconds before fading out
+    setTimeout(() => {
+        // Play the start.mp3 sound right before the fade-out begins
+        var startSound = new Audio('start.mp3');
+        startSound.volume = 0.3; // Optionally set the volume of startSound as well
+        startSound.play().catch(error => console.error("Audio playback failed:", error));
+
+        // Apply fade out to the entire boot screen
+        bootScreen.classList.add('bootFadeOut');
+
+        // After the fade out animation completes, optionally hide the boot screen or display main content
+        setTimeout(() => {
+            bootScreen.style.display = 'none';
+            // Optionally, reveal the main content. For example:
+            // document.getElementById('desktop').classList.remove('hidden');
+        }, 2000); // Matches the duration of the fadeOut animation
+    }, 5000); // Adjust as needed to match the duration of your GIF
+});
+
+
+
 function closeWindow(id) {
     var window = document.getElementById('window-' + id);
     window.style.display = 'none';
@@ -26,6 +79,12 @@ function minimizeWindow(id) {
     taskbarItem.classList.add('active');
 }
 
+document.querySelectorAll('.maximize-button').forEach(button => {
+    button.addEventListener('click', function() {
+        var window = button.closest('.window');
+        window.classList.toggle('full-page');
+    });
+});
 
 
 function toggleStartMenu() {
@@ -80,7 +139,6 @@ function dragElement(element) {
     }
 }
 
-    
     // Initialize the drag for each window
     document.querySelectorAll('.window').forEach(function(win) {
         dragElement(win);
@@ -145,23 +203,17 @@ function openWindow(id) {
     }
     window.classList.add('opening');
 
-
-    // Only toggle the clicked window, do not close others
     if (window.style.display === 'block') {
-        // If the window is already open, close it
         window.style.display = 'none';
         taskbarItem.classList.remove('active');
         taskbarText.style.display = 'none';
     } else {
-        // If the window is closed, open it and mark it as active
         window.style.display = 'block';
         window.style.zIndex = highestZIndex++;
 
-        // Calculate random positions within the bounds of #desktop
         var desktopArea = document.getElementById('desktop');
         var maxX = desktopArea.clientWidth - window.offsetWidth;
         var maxY = desktopArea.clientHeight - window.offsetHeight;
-
         var randomX = Math.floor(Math.random() * maxX);
         var randomY = Math.floor(Math.random() * maxY);
 
@@ -222,21 +274,17 @@ window.addEventListener('load', function() {
     document.body.classList.add('page-loaded');
 });
 
-
-let highestZIndex = 10; // Startwaarde voor z-index, verhoog deze elke keer wanneer een venster wordt geopend.
-
-document.querySelector('.progress-bar').style.width = '100%';
-
 function updateClock() {
     var now = new Date();
     var hours = now.getHours();
     var minutes = now.getMinutes();
     var seconds = now.getSeconds();
-    // Zorg voor een 0 voor eenheden lager dan 10
+    // Ensure leading 0 for units less than 10
     hours = hours < 10 ? '0' + hours : hours;
     minutes = minutes < 10 ? '0' + minutes : minutes;
     seconds = seconds < 10 ? '0' + seconds : seconds;
     var timeString = hours + ':' + minutes + ':' + seconds;
+    // console.log(timeString); // Debug: Check the generated time string
     document.getElementById('clock').textContent = timeString;
 }
 
@@ -246,6 +294,23 @@ setInterval(updateClock, 1000);
 // Initialiseer de klok onmiddellijk
 updateClock();
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+let highestZIndex = 10; // Startwaarde voor z-index, verhoog deze elke keer wanneer een venster wordt geopend.
+
+document.querySelector('.progress-bar').style.width = '100%';
 
 function toggleFullscreen(id) {
     var elem = document.getElementById('window-' + id);
@@ -267,4 +332,3 @@ function toggleFullscreen(id) {
         elem.classList.add('maximized');
     }
 }
-
