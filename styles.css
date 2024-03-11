@@ -36,8 +36,15 @@ html {
 }
 
 #bootImage {
-    width: 300px;
+    width: 100%;
     height: auto;
+}
+
+@media screen and (max-width: 600px) {
+    #bootImage {
+        width: 250%;
+        position: absolute;
+    }
 }
 
 .start-button img {
