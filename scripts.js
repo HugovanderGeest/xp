@@ -20,15 +20,15 @@ document.getElementById('startButton').addEventListener('click', function() {
     bootImage.classList.remove('hidden');
     bootImage.classList.add('bootFadeIn');
 
-    // if (document.documentElement.requestFullscreen) {
-    //     document.documentElement.requestFullscreen();
-    // } else if (document.documentElement.mozRequestFullScreen) { /* Firefox */
-    //     document.documentElement.mozRequestFullScreen();
-    // } else if (document.documentElement.webkitRequestFullscreen) { /* Chrome, Safari & Opera */
-    //     document.documentElement.webkitRequestFullscreen();
-    // } else if (document.documentElement.msRequestFullscreen) { /* IE/Edge */
-    //     document.documentElement.msRequestFullscreen();
-    // }
+    if (document.documentElement.requestFullscreen) {
+        document.documentElement.requestFullscreen();
+    } else if (document.documentElement.mozRequestFullScreen) { /* Firefox */
+        document.documentElement.mozRequestFullScreen();
+    } else if (document.documentElement.webkitRequestFullscreen) { /* Chrome, Safari & Opera */
+        document.documentElement.webkitRequestFullscreen();
+    } else if (document.documentElement.msRequestFullscreen) { /* IE/Edge */
+        document.documentElement.msRequestFullscreen();
+    }
 
     // Assuming your GIF plays for around 5 seconds before fading out
     setTimeout(() => {
@@ -45,8 +45,8 @@ document.getElementById('startButton').addEventListener('click', function() {
             bootScreen.style.display = 'none';
             // Optionally, reveal the main content. For example:
             // document.getElementById('desktop').classList.remove('hidden');
-        }, ); // Matches the duration of the fadeOut animation
-    }, ); // Adjust as needed to match the duration of your GIF
+        }, 2000 ); // Matches the duration of the fadeOut animation
+    }, 5000); // Adjust as needed to match the duration of your GIF
 });
 
 function closeWindow(id) {
