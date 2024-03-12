@@ -122,14 +122,14 @@ html {
 .werk h3 {
     margin-top: 10px;
     color: white;
-    font-size: clamp(12px, 4vw, 32px);
+    font-size: clamp(10px, 4vw, 20px);
     text-align: center;
 }
 
 .werk h4 {
     margin-top: -15px;
     color: white;
-    font-size: clamp(7px, 3vw, 25px);
+    font-size: clamp(5px, 3vw, 15px);
     text-align: center;
 
 }
@@ -612,7 +612,8 @@ body.page-loaded #preloader {
 }
 
 .msn-content {
-    display: block; 
+    display: grid; 
+    grid-template-columns: 1fr 1fr;
     background: linear-gradient(45deg, #000000, #0400fc, #000000, #0400ff);
     background-size: 400% 400%;
     animation: gradientBackground 15s ease infinite;
