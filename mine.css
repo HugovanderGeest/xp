@@ -1,25 +1,4 @@
-body {
-    background: url("img/bliss.jpg");
-    margin: 0;
-    background-repeat: no-repeat;
-    background-size: cover;
-}
 
-#game_window {
-    border: solid #0000ff 2px;
-    border-top-left-radius: 5px;
-    border-top-right-radius: 5px;
-    min-width: 200px;
-    margin: auto;
-    margin: 0;
-
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -55%);
-    background-color: rgb(184, 184, 184);
-    width: fit-content;
-}
 
 #get_help {
     position: relative;
@@ -256,15 +235,6 @@ footer>img,
 
 #taskbar_right {
     float: right;
-}
-
-#clock {
-    display: inline;
-    position: relative;
-    left: 110px;
-    top: -10px;
-    color: whitesmoke;
-    cursor: default;
 }
 
 footer>a>img {
