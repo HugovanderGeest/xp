@@ -1,0 +1,19 @@
+{
+	"folders": [
+		{
+			"name": "xp",
+			"path": "."
+		},
+		{
+			"name": "img",
+			"path": "../../../Downloads/minesweeper-js-main/minesweeper-js-main/img"
+		},
+		{
+			"name": "js",
+			"path": "../../../Downloads/minesweeper-js-main/minesweeper-js-main/js"
+		}
+	],
+	"settings": {
+		"liveServer.settings.multiRootWorkspaceName": "xp"
+	}
+}

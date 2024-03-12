@@ -2,16 +2,19 @@ body,
 html {
     height: 100%;
     margin: 0;
-    font-family: 'XP Tahoma', Arial, sans-serif; /* Add the Tahoma font here */
+    font-family: 'XP Tahoma', Arial, sans-serif;
+    /* Add the Tahoma font here */
 }
 
 * {
-    font-family: 'XP Tahoma', Arial, sans-serif; /* Add the Tahoma font here */
+    font-family: 'XP Tahoma', Arial, sans-serif;
+    /* Add the Tahoma font here */
 }
 
 @font-face {
     font-family: 'XP Tahoma';
-    src: url('windows-xp-tahoma.ttf') format('truetype'); /* Adjust the path as needed */
+    src: url('windows-xp-tahoma.ttf') format('truetype');
+    /* Adjust the path as needed */
 }
 
 #desktop {
@@ -82,15 +85,53 @@ html {
 .window {
     position: absolute;
     max-width: 600px;
-    transition: max-width 0.5s, max-height 0.5s; /* Add a transition effect */
+    transition: max-width 0.5s, max-height 0.5s;
     top: 10px;
-    /* Adjust as needed */
     left: 150px;
-    /* Adjust as needed */
     border: 3px solid #0055e5;
     background-color: #fff;
     display: none;
     border-radius: 5px;
+}
+
+.werk-img {
+    width: 50px;
+    border-radius: 25px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.werk {
+    margin: 10px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 16px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(14.9px);
+    -webkit-backdrop-filter: blur(14.9px);
+    padding: 15px;
+    height: 150px;
+}
+
+@media screen and (max-width: 600px) {
+    .werk {
+        width: 150px;
+    }
+}
+
+.werk h3 {
+    margin-top: 10px;
+    color: white;
+    font-size: clamp(12px, 4vw, 32px);
+    text-align: center;
+}
+
+.werk h4 {
+    margin-top: -15px;
+    color: white;
+    font-size: clamp(7px, 3vw, 25px);
+    text-align: center;
+
 }
 
 .title-bar {
@@ -127,22 +168,25 @@ html {
 }
 
 .minimize-button {
-    background-image: url('min.png'); /* Update path to your ico */
+    background-image: url('min.png');
+    /* Update path to your ico */
     background-size: 25px;
 }
 
 .mar {
-margin-left: 10px;
+    margin-left: 10px;
 }
 
 .maximize-button {
-    background-image: url('big.png'); /* Update path to your icon */
+    background-image: url('big.png');
+    /* Update path to your icon */
     background-size: 25px;
 
 }
 
 .close-button {
-    background-image: url('close.png'); /* Update path to your icon */
+    background-image: url('close.png');
+    /* Update path to your icon */
     background-size: 25px;
 }
 
@@ -162,7 +206,8 @@ margin-left: 10px;
 .window-content {
     display: flex;
     justify-content: center;
-    height: 100%; /* Set to the height you want */
+    height: 100%;
+    /* Set to the height you want */
 }
 
 @media screen and (max-width: 600px) {
@@ -191,11 +236,12 @@ margin-left: 10px;
 
 .icon p {
     font-size: 20px;
-    margin-top: 100px  ;  /* Verwijder de standaardmarge van de paragraaf */
+    margin-top: 100px;
+    /* Verwijder de standaardmarge van de paragraaf */
     position: absolute;
     bottom: -50px;
     color: white;
-    text-shadow: #000 0px 2px 10px ;
+    text-shadow: #000 0px 2px 10px;
 }
 
 #start-menu {
@@ -280,8 +326,10 @@ body.page-loaded #preloader {
 }
 
 .taskbar-item.active .taskbar-text {
-    display: inline; /* Show text when active */
+    display: inline;
+    /* Show text when active */
 }
+
 /* Bestaande stijlen... (de rest van je CSS blijft ongewijzigd) */
 .taskbar-icons {
     display: flex;
@@ -345,31 +393,50 @@ body.page-loaded #preloader {
 }
 
 .taskbar-icon {
-    width: 16px; /* Set the size of your icon */
+    width: 16px;
+    /* Set the size of your icon */
     height: 16px;
-    margin-right: 4px; /* Space between icon and text */
+    margin-right: 4px;
+    /* Space between icon and text */
 }
 
 .taskbar-text {
     font-size: 12px;
     display: none;
-    white-space: nowrap; /* Ensure text doesn't wrap to the next line */
+    white-space: nowrap;
+    /* Ensure text doesn't wrap to the next line */
 }
 
 .fullscreen {
-    overflow: auto; /* Adjust based on your content needs */
-    box-shadow: 0 0 10px rgba(0,0,0,0.5); /* Example styling */
+    overflow: auto;
+    /* Adjust based on your content needs */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    /* Example styling */
     /* Add any other styles you want for full-screen mode */
 }
 
 @keyframes fadeIn {
-    from { opacity: 0; transform: translateY(20px); }
-    to { opacity: 1; transform: translateY(0); }
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 @keyframes fadeOut {
-    from { opacity: 1; transform: translateY(0); }
-    to { opacity: 0; transform: translateY(20px); }
+    from {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    to {
+        opacity: 0;
+        transform: translateY(20px);
+    }
 }
 
 .window.opening {
@@ -381,11 +448,13 @@ body.page-loaded #preloader {
 }
 
 .minimized {
-    display: none; /* Now the window is not displayed after minimizing */
+    display: none;
+    /* Now the window is not displayed after minimizing */
 }
 
 .minimize-button {
-    background-image: url('min.png'); /* Update path to your ico */
+    background-image: url('min.png');
+    /* Update path to your ico */
     background-size: 25px;
 }
 
@@ -422,13 +491,23 @@ body.page-loaded #preloader {
 
 /* New animations for boot screen fade in and fade out */
 @keyframes bootFadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
 }
 
 @keyframes bootFadeOut {
-    from { opacity: 1; }
-    to { opacity: 0; }
+    from {
+        opacity: 1;
+    }
+
+    to {
+        opacity: 0;
+    }
 }
 
 /* Apply the new animations to the boot image and screen */
@@ -447,13 +526,18 @@ body.page-loaded #preloader {
 
 #byGoHugo {
     position: absolute;
-    bottom: 20px; /* Adjust as needed */
+    bottom: 20px;
+    /* Adjust as needed */
     width: 100%;
     text-align: center;
-    color: white; /* Choose a color that stands out against your boot screen background */
-    font-family: 'Roboto', sans-serif; /* Use the Roboto font */
-    font-size: 15px; /* Adjust font size as needed */
-    font-weight: 300; /* Use the light weight for a thin appearance */
+    color: white;
+    /* Choose a color that stands out against your boot screen background */
+    font-family: 'Roboto', sans-serif;
+    /* Use the Roboto font */
+    font-size: 15px;
+    /* Adjust font size as needed */
+    font-weight: 300;
+    /* Use the light weight for a thin appearance */
 }
 
 .linke {
@@ -481,7 +565,7 @@ body.page-loaded #preloader {
     background: linear-gradient(45deg, #ff0000, #ff7300, #fffb00, #48ff00, #00ffd5, #002bff, #7a00ff, #ff00c8, #ff0000);
     position: absolute;
     top: -2px;
-    left:-2px;
+    left: -2px;
     background-size: 400%;
     z-index: -1;
     filter: blur(5px);
@@ -514,27 +598,44 @@ body.page-loaded #preloader {
 }
 
 @keyframes glowing {
-    0% { background-position: 0 0; }
-    50% { background-position: 400% 0; }
-    100% { background-position: 0 0; }
+    0% {
+        background-position: 0 0;
+    }
+
+    50% {
+        background-position: 400% 0;
+    }
+
+    100% {
+        background-position: 0 0;
+    }
 }
 
 .msn-content {
-    /* Other styling properties */
-    background: linear-gradient(45deg, #000000, #5b58ff, #000000, #5b58ff);
+    display: block; 
+    background: linear-gradient(45deg, #000000, #0400fc, #000000, #0400ff);
     background-size: 400% 400%;
     animation: gradientBackground 15s ease infinite;
     width: 100%;
-  height: 100%;
+    height: 100%;
+}
+
+@media screen and (max-width: 600px) {
+    .msn-content {
+        display: grid; 
+        grid-template-columns: 1fr 1fr;
+    }
 }
 
 @keyframes gradientBackground {
     0% {
         background-position: 0% 50%;
     }
+
     50% {
         background-position: 100% 50%;
     }
+
     100% {
         background-position: 0% 50%;
     }
@@ -548,7 +649,8 @@ body.page-loaded #preloader {
 }
 
 .msn-icon-list li a {
-    color: #ffffff; /* or any other color */
+    color: #ffffff;
+    /* or any other color */
     text-decoration: none;
     display: flex;
     flex-direction: column;
@@ -561,8 +663,10 @@ body.page-loaded #preloader {
 }
 
 .msn-icon-list i {
-    font-size: 50px; /* Adjust the size as needed */
-    margin-bottom: 4px; /* Space between icon and text */
+    font-size: 50px;
+    /* Adjust the size as needed */
+    margin-bottom: 4px;
+    /* Space between icon and text */
 }
 
 .icon-bere {
@@ -571,4 +675,4 @@ body.page-loaded #preloader {
     width: 55px;
     height: 55px;
     margin-left: 20px;
-}   
+}

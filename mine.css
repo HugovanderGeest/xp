@@ -75,6 +75,7 @@ li {
     background-color: rgb(184, 184, 184);
     margin-bottom: 0;
     padding-bottom: 5px;
+    width: 320px;
 }
 
 #game_menu {
@@ -148,6 +149,7 @@ li {
     border-bottom: solid rgb(117, 117, 117) 2px;
     border-right: solid rgb(117, 117, 117) 2px;
     background-color: rgb(192, 192, 192);
+    height: 34px;
 }
 
 .field_button:active {
@@ -189,6 +191,8 @@ td {
     padding-top: 11px;
     padding-left: 11px;
     margin: 0px;
+    width: 27px;
+  height: 27px;
 }
 
 .field_button_img {
@@ -201,6 +205,8 @@ td {
     margin: 0;
     background-repeat: no-repeat;
     background-position: center;
+    width: 27px;
+  height: 27px;
 }
 
 footer>img,
