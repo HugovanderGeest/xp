@@ -8,6 +8,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="mine.css">
+
 </head>
 
 <body>
@@ -59,8 +61,8 @@
         </div>
 
 
-        <div class="icon" onclick="openWindow('edge')" style="background-image: url('edge.png');">
-            <p>Internet</p>
+        <div class="icon" onclick="openWindow('edge')" style="background-image: url('mine.webp');">
+            <p>Minesweeper</p>
         </div>
 
         <div class="icon" onclick="openWindow('msn')" style="background-image: url('msn.webp');">
@@ -76,8 +78,8 @@
         <div id="window-edge" class="window">
             <div class="title-bar" id="window-edge-header">
                 <div class="title">
-                    <img src="edge.png" alt="Edge" class="mar taskbar-icon">
-                    Edge
+                    <img src="mine.webp" alt="Edge" class="mar taskbar-icon">
+                    Minesweeper
                 </div>
                 <div class="window-controls">
                     <button class="minimize-button" onclick="minimizeWindow('edge')"></button>
@@ -85,10 +87,79 @@
                     <button class="close-button" onclick="closeWindow('edge')"></button>
                 </div>
             </div>
+
             <div class="window-content">
-                <p>Dit is het Edge-venster. Hier kan content komen zoals een ingebedde webpagina of andere informatie.
-                </p>
+                        <div id="game_panel">
+                            <div id="game_menu">
+                                <div id="flags_left">
+                                    <img id="flags0" src="img/digits/digit0.png">
+                                    <img id="flags1" src="img/digits/digit1.png">
+                                    <img id="flags2" src="img/digits/digit0.png">
+                                </div>
+                                <div id="face">
+                                    <button onclick="resetGame()">
+                                        <img id="smiley" src="img/ok.png">
+                                    </button>
+                                </div>
+                                <div id="timer">
+                                    <img id="timer0" src="img/digits/digit0.png">
+                                    <img id="timer1" src="img/digits/digit0.png">
+                                    <img id="timer2" src="img/digits/digit0.png">
+                                    <script src="js/timer.js"></script>
+                                </div>
+                            </div>
+            
+                            <table id="grid"></table>
+            
+                            <script src="js/display.js"></script>
+                        </div>
+                    </div>
+                </div>
+            
+                <div id="get_help" class="hidden">
+                    <div id="help_top">
+                        <img id="icon" src="favicon.ico">
+                        <img onclick="toggleHelp()" id="help_cross" class="window_button" src="img/window_close.png">
+                        <p class="window_title">
+                            Help
+                        </p>
+                    </div>
+            
+                    <div id="instructions">
+                        <h3 style="margin-top: 1px; margin-bottom: 0px;">Instructions</h3>
+                        <ul>
+                            <li>
+                                The objective of Minesweeper is to clear a rectangular board containing hidden "mines" or bombs
+                                without detonating any of them.
+                            </li>
+                            <li>
+                                To start, click on any square on the board. If that square contains a mine, the game is over. If it
+                                does not contain a mine, a number will appear indicating how many mines are in the eight adjacent
+                                squares.
+                            </li>
+                            <li>
+                                Use the numbers to deduce the location of mines. For example, if a square has a "1" on it, there is
+                                one mine in one of the eight squares around it.
+                            </li>
+                            <li>
+                                Right-click on a square to flag it if you think it contains a mine. Right-click again to unflag it.
+                            </li>
+                            <li>
+                                The game is won when all non-mine squares have been cleared.
+                            </li>
+                            <li>
+                                <a id="unlucky" onclick="feelingLucky()"><u>Feeling lucky?</u></button>
+                            </li>
+                        </ul>
+                        <a href="https://github.com/urluur/minesweeper-js">
+                            <img src="https://cdn-icons-png.flaticon.com/512/25/25231.png" alt="GitHub"
+                                style="width: 20px; float:right; margin-top: -19;">
+                        </a>
+                    </div>
+                </div>
+                <script src="js/game.js"></script>
             </div>
+            
         </div>
 
         <div id="window-my-computer" class="window">
@@ -123,24 +194,30 @@
             <div class="window-content">
                 <div class="msn-content">
                     <ul class="msn-icon-list">
-                        <li><a href="https://www.linkedin.com" target="_blank" class="icon icon-linkedin"><i
+                        <li><a href="https://nl.linkedin.com/in/hugo-van-der-geest-a4222219a" target="_blank" class="icon icon-linkedin"><i
                                     class="fab fa-linkedin"></i> </a></li>
-                        <li><a href="whatsapp://send?text=Hello" target="_blank" class="icon icon-whatsapp"><i
+                        <li><a href="https://api.whatsapp.com/send/?phone=%2B31639865297&text&type=phone_number&app_absent=0" target="_blank" class="icon icon-whatsapp"><i
                                     class="fab fa-whatsapp"></i> </a></li>
-                        <li><a href="/path-to-download" class="icon icon-gitlab"><i class="fa-brands fa-github"></i>
+                        <li><a href="https://github.com/HugovanderGeest" class="icon icon-gitlab"><i class="fa-brands fa-github"></i>
                             </a></li>
-                        <li><a href="/settings" class="icon icon-github"><i class="fa-brands fa-gitlab"></i> </a></li>
-                        <li><a href="mailto:email@example.com" class="icon icon-mail"><i
-                                    class="fas fa-envelope"></i></a></li>
-                        <li><a href="/path-to-download" class="icon icon-gitlab"><i class="fa-brands fa-snapchat"></i>
+                        <li><a href="https://gitlab.fdmci.hva.nl/bim2_0/studenten/leergroepb/tribe_michel/van_der_geest_hugo_blok_1" class="icon icon-github"><i class="fa-brands fa-gitlab"></i> 
+                        </a></li>
+                        <li><a href="mailto:hugo.vdg@outlook.com?&subject=Contact vanuit website&body=Gelieven hier uw vraag stellen via de mail of telefoonnummer 0639865297" class="icon icon-mail"><i class="fas fa-envelope"></i>
+                        </a></li>
+                        <li><a href="https://www.snapchat.com/add/hugoo.vdg" class="icon icon-snapchat"><i class="fa-brands fa-snapchat"></i>
                             </a></li>
-                        <li><a href="/path-to-download" class="icon icon-gitlab"><i class="fa-brands fa-instagram"></i>
+                        <li><a href="https://www.instagram.com/hugo.vdg/" class="icon icon-instagram"><i class="fa-brands fa-instagram"></i>
                             </a></li>
-                        <li><a href="/path-to-download" class="icon icon-gitlab"><i class="fa-brands fa-discord"></i>
+                            <li><a href="discord.com/users/243437082800947202" class="icon icon-discord"><i class="fa-brands fa-discord"></i>
                             </a></li>
-                        <li><a href="/path-to-download" class="icon icon-gitlab"><i class="fa-brands fa-steam"></i> </a>
+                        <li><a href="https://untappd.com/user/HugoVDG" class="icon icon-untappd"><i class="fa-brands fa-untappd"></i>
+                            </a></li>
+                        <li><a href="https://open.spotify.com/playlist/7h3C56rQtWwKPDJjDCqwkD?si=5c952ad85a86463f" class="icon icon-spotify"><i class="fa-brands fa-spotify"></i> </a>
                         </li>
-
+                        <li><a href="https://steamcommunity.com/profiles/76561198105181918/" class="icon icon-steam"><i class="fa-brands fa-steam"></i> </a>
+                        </li>
+                        <li><a href="https://bere.al/hugo.oo"><img  class="icon icon-bere"  src="bereal.jpg" alt="">
+                        </a></li>
                     </ul>
                 </div>
             </div>
