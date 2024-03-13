@@ -115,7 +115,20 @@ html {
 
 @media screen and (max-width: 600px) {
     .werk {
-        width: 150px;
+        width: 120px;
+        height: 120px;
+    }
+
+    .msn-content {
+        max-height: 90vh;
+    }
+
+    .msn-icon-list {
+        width: 90vw;
+    }
+
+    .msn-icon-list li a {
+        width: 22vw;
     }
 }
 
