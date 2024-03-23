@@ -792,6 +792,20 @@ a {
       opacity: 0;
     }
   }
+
+@media only screen and (max-width: 600px) {
+    .rij {
+        position: absolute;
+        top: 30px;
+        left: 160px;
+    }
+    
+    .rije {
+        position: absolute;
+        top: 170px;
+        left: 160px;
+    }
+}
   
   .fade-out {
     animation: fadeOut 1s forwards;
