@@ -3,12 +3,10 @@ html {
     height: 100%;
     margin: 0;
     font-family: 'XP Tahoma', Arial, sans-serif;
-    /* Add the Tahoma font here */
 }
 
 * {
     font-family: 'XP Tahoma', Arial, sans-serif;
-    /* Add the Tahoma font here */
 }
 
 @font-face {
@@ -34,6 +32,15 @@ html {
     height: 40px;
 }
 
+.extra {
+    grid-template-columns: auto !important;
+}
+
+.extra .werk {
+    height: 300px;
+    width: 250px;
+}
+
 #bootScreen {
     position: fixed;
     top: 0;
@@ -46,6 +53,14 @@ html {
     align-items: center;
     z-index: 9999;
 }
+
+.profielfoto {
+    width: 200px;
+    border-radius: 20px;
+    position: relative;
+  left: 50%;
+  transform: translateX(-50%); }
+
 
 #bootImage {
     width: 100%;
@@ -94,7 +109,7 @@ html {
     border-radius: 5px;
 }
 
-.werk-img {
+.werker-img, .werk-img {
     width: 50px;
     border-radius: 25px;
     display: block;
@@ -102,7 +117,7 @@ html {
     margin-right: auto;
 }
 
-.werk {
+.werk, .werker {
     margin: 10px;
     background: rgba(255, 255, 255, 0.1);
     border-radius: 16px;
@@ -133,14 +148,16 @@ html {
     }
 }
 
-.werk h3 {
+
+
+.werk h3, .werker h3 {
     margin-top: 10px;
     color: white;
     font-size: clamp(10px, 4vw, 20px);
     text-align: center;
 }
 
-.werk h4 {
+.werk h4, .werker h4{
     margin-top: -15px;
     color: white;
     font-size: clamp(5px, 2.5vw, 15px);
@@ -256,28 +273,6 @@ html {
     bottom: -50px;
     color: white;
     text-shadow: #000 0px 2px 10px;
-}
-
-#start-menu {
-    position: fixed;
-    bottom: 40px;
-    /* Hoogte van de taakbalk */
-    left: 0;
-    background: #0000ff;
-    width: 300px;
-    /* Breite van het startmenu */
-    padding: 10px;
-    box-sizing: border-box;
-    border: 1px solid #000;
-    display: none;
-    /* Verborgen totdat het wordt geactiveerd */
-}
-
-.menu-item {
-    background: #ccc;
-    padding: 5px;
-    margin-bottom: 3px;
-    cursor: pointer;
 }
 
 .system-tray .time {
@@ -631,7 +626,7 @@ body.page-loaded #preloader {
 
 .msn-content {
     display: grid; 
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: auto auto;
     background: linear-gradient(45deg, #000000, #0400fc, #000000, #0400ff);
     background-size: 400% 400%;
     animation: gradientBackground 15s ease infinite;
@@ -697,3 +692,136 @@ body.page-loaded #preloader {
     height: 55px;
     margin-left: 20px;
 }
+
+/* Base styles for all project divs */
+.werker {
+    position: relative;
+}
+
+/* Common ::before styles for the hover effect background */
+.werker::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    border-radius: 15px;
+    width: 100%;
+    height: 100%;
+    background-repeat: no-repeat;
+    background-size: cover;
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+    z-index: -1;
+}
+
+/* Hover effects for text and images */
+.werker h3, .werker h4, .werker img {
+    transition: opacity 0.3s ease-in-out;
+}
+
+.werker:hover h3, .werker:hover h4, .werker:hover img {
+    opacity: 0;
+}
+
+a {
+    text-decoration: none;
+}
+
+/* Individual background images for each project */
+.bgv::before {
+    background-image: url("/intresses/bgv-back.png");
+}
+
+.linkdoor::before {
+    background-image: url("/intresses/link-back.png"); /* Change this URL to your desired background for linkdoor */
+}
+
+.djmicheldegrote::before {
+    background-image: url("/intresses/mdg-back.png"); /* Change this URL for DJ Michel De Grote */
+}
+
+.up::before {
+    background-image: url("/intresses/muziek-back.png"); /* Background image for 40UP */
+}
+
+.svjurista::before {
+    background-image: url("/intresses/jur-back.png"); /* Background image for SV Jurista */
+}
+
+.yvonne::before {
+    background-image: url("/intresses/yvo-back.png"); /* Background image for Yvonne */
+}
+
+/* Ensure hover effect shows the background */
+.werker:hover::before {
+    opacity: 1;
+}
+
+
+@keyframes bounceInRight {
+    0% {
+      opacity: 0;
+      transform: translateX(100px);
+    }
+    60% {
+      opacity: 1;
+      transform: translateX(-10px);
+    }
+    80% {
+      transform: translateX(5px);
+    }
+    100% {
+      transform: translateX(0);
+    }
+  }
+  
+  @keyframes bounce {
+    0%, 100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-10px);
+    }
+  }
+  
+  @keyframes fadeOut {
+    0% {
+      opacity: 1;
+    }
+    100% {
+      opacity: 0;
+    }
+  }
+  
+  .fade-out {
+    animation: fadeOut 1s forwards;
+  }
+  
+  #clippy-assistant {
+    display: none;
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 1001;
+    /* Initial bounce in with delay */
+    animation: bounceInRight 0.5s, bounce 1s infinite 3.5s;
+  }
+  
+  #clippy-message {
+    position: absolute;
+    bottom: 120px;
+    right: 0;
+    background-color: #ffffe0;
+    padding: 10px;
+    border-radius: 10px;
+    border: 1px solid #000;
+    font-family: 'Comic Sans MS', 'Comic Sans', cursive;
+    max-width: 250px;
+    box-shadow: 2px 2px 2px rgba(0,0,0,0.2);
+    text-align: left;
+  }
+  
+  #clippy-assistant img {
+    width: 100px;
+    height: auto;
+  }

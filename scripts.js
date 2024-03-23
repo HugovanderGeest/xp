@@ -211,19 +211,72 @@ function openWindow(id) {
         window.style.display = 'block';
         window.style.zIndex = highestZIndex++;
 
-        var desktopArea = document.getElementById('desktop');
-        var maxX = desktopArea.clientWidth - window.offsetWidth;
-        var maxY = desktopArea.clientHeight - window.offsetHeight;
-        var randomX = Math.floor(Math.random() * maxX);
-        var randomY = Math.floor(Math.random() * maxY);
+        // Determine Clippy's message based on the window ID
+        var message;
+        switch (id) {
+            case 'my-computer':
+                message = "Over mij";
+                break;
+            case 'edge':
+                message = "Ah, Minesweeper! suc7";
+                break;
+            case 'msn':
+                message = "Hier can je mij contacteren";
+                break;
+            case 'documents':
+                message = "Een deel van mijn banen die ik gehad heb";
+                break;
+            case 'music':
+                message = "Mijn intresses en hobbys";
+                break;
+            case 'star':
+                message = "Dit zijn website die ik door de jaren heb gemaakt heb, klik er op!";
+                break;
+        }
 
-        window.style.left = randomX + 'px';
-        window.style.top = randomY + 'px';
+        // Update and show Clippy's message
+        var clippyMessage = document.getElementById('clippy-message');
+        clippyMessage.textContent = message;
+        document.getElementById('clippy-assistant').style.display = 'block';
 
         taskbarItem.classList.add('active');
         taskbarText.style.display = 'inline'; // Show the text for the active icon
+        setTimeout(hideClippy, 2000);
     }
 }
+
+function showClippy(message) {
+    var clippy = document.getElementById('clippy-assistant');
+    var clippyMessage = document.getElementById('clippy-message');
+  
+    clippyMessage.textContent = message;
+    setTimeout(function() {
+      clippy.style.display = 'block'; // Clippy becomes visible and animation starts due to CSS
+    }, 5000); // Delay showing Clippy for 5 seconds
+  }
+
+  function hideClippy() {
+    var clippy = document.getElementById('clippy-assistant');
+    clippy.classList.add('fade-out');
+  }
+
+  // Example usage
+// Get the current hour
+var currentHour = new Date().getHours();
+
+// Determine the greeting based on the current time
+var greeting;
+if (currentHour < 12) {
+    greeting = "Goedemorgen";
+} else if (currentHour < 18) {
+    greeting = "Goedenmiddag";
+} else {
+    greeting = "Goedeavond";
+}
+
+// Show the greeting
+showClippy(greeting + ", Ik ben Clippy, Welkom op Hugo zijn website");
+  
 
 // Adjust closeWindow function as well
 function closeWindow(id) {
@@ -232,21 +285,18 @@ function closeWindow(id) {
     var taskbarText = taskbarItem.querySelector('.taskbar-text');
     window.classList.add('closing');
 
-    // Close the window and revert its taskbar item to non-active
-    window.style.display = 'none';
+    // Update the taskbar item to reflect that the window is not active anymore
     taskbarItem.classList.remove('active');
     taskbarText.style.display = 'none'; // Hide the text for the non-active icon
 
-
     setTimeout(function() {
-        // Wait for the animation to finish before hiding the window
+        // Wait for the closing animation to finish before hiding the window
         window.style.display = 'none';
-    }, 200); // this should be the same as your CSS animation duration
-
-    var taskbarItem = document.querySelector('.taskbar-item[data-window="' + id + '"]');
-    var taskbarText = taskbarItem.querySelector('.taskbar-text');
-
+        // Additionally, hide Clippy's assistant when a window is closed
+        document.getElementById('clippy-assistant').style.display = 'none';
+    }, 200); // This duration should match your CSS animation duration for the closing effect
 }
+
 
 
 
@@ -293,18 +343,6 @@ setInterval(updateClock, 1000);
 
 // Initialiseer de klok onmiddellijk
 updateClock();
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

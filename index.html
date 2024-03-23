@@ -21,12 +21,22 @@
     </div>
 
     <div id="desktop">
-        <!-- Startmenu -->
-        <div id="start-menu" class="hidden">
-            <div class="menu-item">My Documents</div>
-            <!-- Voeg meer menu-items toe zoals nodig -->
-        </div>
 
+        <div id="clippy-assistant">
+            <div id="clippy-message">
+                Hello, I'm Clippy!
+            </div>
+            <script>
+                window.onload = function() {
+                    var images = ['clippy.gif', 'clippy2.gif', 'clippy3.gif', 'clippy4.gif'];
+                    var randomImage = images[Math.floor(Math.random() * images.length)];
+                    document.getElementById('clippyImage').src = randomImage;
+                }
+            </script>
+            <img id="clippyImage" alt="Clippy" style="width:100px; height:auto;">
+        </div>
+        
+        
         <!-- Taakbalk -->
         <div id="taskbar">
             <div id="start-button" onclick="toggleStartMenu()" class="start-button"><img src="logo.svg"> start</div>
@@ -37,8 +47,8 @@
                     <span class="taskbar-text">My Computer</span>
                 </div>
                 <div class="taskbar-item" data-window="edge" onclick="openWindow('edge')">
-                    <img src="edge.png" alt="Edge" class="taskbar-icon">
-                    <span class="taskbar-text">Internet</span>
+                    <img src="mine.webp" alt="Edge" class="taskbar-icon">
+                    <span class="taskbar-text">Minesweeper</span>
                 </div>
                 <div class="taskbar-item" data-window="msn" onclick="openWindow('msn')">
                     <img src="msn.webp" alt="MSN" class="taskbar-icon">
@@ -46,6 +56,14 @@
                 </div>
                 <div class="taskbar-item" data-window="documents" onclick="openWindow('documents')">
                     <img src="documents.png" alt="Documents" class="taskbar-icon">
+                    <span class="taskbar-text">Portfolio</span>
+                </div>
+                <div class="taskbar-item" data-window="music" onclick="openWindow('music')">
+                    <img src="music.png" alt="music" class="taskbar-icon">
+                    <span class="taskbar-text">Intresses</span>
+                </div>
+                <div class="taskbar-item" data-window="star" onclick="openWindow('star')">
+                    <img src="star.png" alt="Portfolio" class="taskbar-icon">
                     <span class="taskbar-text">Portfolio</span>
                 </div>
             </div>
@@ -60,7 +78,6 @@
             <p>Computer</p>
         </div>
 
-
         <div class="icon" onclick="openWindow('edge')" style="background-image: url('mine.webp');">
             <p>Minesweeper</p>
         </div>
@@ -70,9 +87,16 @@
         </div>
 
         <div class="icon" onclick="openWindow('documents')" style="background-image: url('documents.png');">
-            <p>Portfolio</p>
+            <p>Werkervaring</p>
         </div>
 
+        <div class="icon" onclick="openWindow('music')" style="background-image: url('music.png');">
+            <p>Intresses</p>
+        </div>
+
+        <div class="icon" onclick="openWindow('star')" style="background-image: url('star.png');">
+            <p>Portfolio</p>
+        </div>
 
         <!-- Vensters -->
         <div id="window-edge" class="window">
@@ -89,196 +113,392 @@
             </div>
 
             <div class="window-content">
-                        <div id="game_panel">
-                            <div id="game_menu">
-                                <div id="flags_left">
-                                    <img id="flags0" src="img/digits/digit0.png">
-                                    <img id="flags1" src="img/digits/digit1.png">
-                                    <img id="flags2" src="img/digits/digit0.png">
-                                </div>
-                                <div id="face">
-                                    <button onclick="resetGame()">
-                                        <img id="smiley" src="img/ok.png">
-                                    </button>
-                                </div>
-                                <div id="timer">
-                                    <img id="timer0" src="img/digits/digit0.png">
-                                    <img id="timer1" src="img/digits/digit0.png">
-                                    <img id="timer2" src="img/digits/digit0.png">
-                                    <script src="js/timer.js"></script>
-                                </div>
-                            </div>
-            
-                            <table id="grid"></table>
-            
-                            <script src="js/display.js"></script>
+                <div id="game_panel">
+                    <div id="game_menu">
+                        <div id="flags_left">
+                            <img id="flags0" src="img/digits/digit0.png">
+                            <img id="flags1" src="img/digits/digit1.png">
+                            <img id="flags2" src="img/digits/digit0.png">
+                        </div>
+                        <div id="face">
+                            <button onclick="resetGame()">
+                                <img id="smiley" src="img/ok.png">
+                            </button>
+                        </div>
+                        <div id="timer">
+                            <img id="timer0" src="img/digits/digit0.png">
+                            <img id="timer1" src="img/digits/digit0.png">
+                            <img id="timer2" src="img/digits/digit0.png">
+                            <script src="js/timer.js"></script>
                         </div>
                     </div>
-                </div>
-                <script src="js/game.js"></script>
-            </div>
-            
-        </div>
 
-        <div id="window-my-computer" class="window">
-            <div class="title-bar" id="window-my-computer-header">
-                <div class="title">
-                    <img src="XPIcon.webp" alt="My Computer" class="mar taskbar-icon">
-                    Mijn Computer
-                </div>
-                <div class="window-controls">
-                    <button class="minimize-button" onclick="minimizeWindow('my-computer')"></button>
-                    <button class="maximize-button" onclick="toggleFullscreen('my-computer')"></button>
-                    <button class="close-button" onclick="closeWindow('my-computer')"></button>
-                </div>
-            </div>
-            <div class="window-content">
-                <p>Hallo, welkom bij Mijn Computer!</p>
-            </div>
-        </div>
+                    <table id="grid"></table>
 
-        <div id="window-msn" class="window">
-            <div class="title-bar" id="window-msn-header">
-                <div class="title">
-                    <img src="msn.webp" alt="MSN" class="mar taskbar-icon">
-                    MSN
-                </div>
-                <div class="window-controls">
-                    <button class="minimize-button" onclick="minimizeWindow('msn')"></button>
-                    <button class="maximize-button" onclick="toggleFullscreen('msn')"></button>
-                    <button class="close-button" onclick="closeWindow('msn')"></button>
-                </div>
-            </div>
-            <div class="window-content">
-                <div class="msn-content">
-                    <ul class="msn-icon-list">
-                        <li><a href="https://nl.linkedin.com/in/hugo-van-der-geest-a4222219a" target="_blank" class="icon icon-linkedin"><i
-                                    class="fab fa-linkedin"></i> </a></li>
-                        <li><a href="https://api.whatsapp.com/send/?phone=%2B31639865297&text&type=phone_number&app_absent=0" target="_blank" class="icon icon-whatsapp"><i
-                                    class="fab fa-whatsapp"></i> </a></li>
-                        <li><a href="https://github.com/HugovanderGeest" class="icon icon-gitlab"><i class="fa-brands fa-github"></i>
-                            </a></li>
-                        <li><a href="https://gitlab.fdmci.hva.nl/bim2_0/studenten/leergroepb/tribe_michel/van_der_geest_hugo_blok_1" class="icon icon-github"><i class="fa-brands fa-gitlab"></i> 
-                        </a></li>
-                        <li><a href="mailto:hugo.vdg@outlook.com?&subject=Contact vanuit website&body=Gelieven hier uw vraag stellen via de mail of telefoonnummer 0639865297" class="icon icon-mail"><i class="fas fa-envelope"></i>
-                        </a></li>
-                        <li><a href="https://www.snapchat.com/add/hugoo.vdg" class="icon icon-snapchat"><i class="fa-brands fa-snapchat"></i>
-                            </a></li>
-                        <li><a href="https://www.instagram.com/hugo.vdg/" class="icon icon-instagram"><i class="fa-brands fa-instagram"></i>
-                            </a></li>
-                            <li><a href="discord.com/users/243437082800947202" class="icon icon-discord"><i class="fa-brands fa-discord"></i>
-                            </a></li>
-                        <li><a href="https://untappd.com/user/HugoVDG" class="icon icon-untappd"><i class="fa-brands fa-untappd"></i>
-                            </a></li>
-                        <li><a href="https://open.spotify.com/playlist/7h3C56rQtWwKPDJjDCqwkD?si=5c952ad85a86463f" class="icon icon-spotify"><i class="fa-brands fa-spotify"></i> </a>
-                        </li>
-                        <li><a href="https://steamcommunity.com/profiles/76561198105181918/" class="icon icon-steam"><i class="fa-brands fa-steam"></i> </a>
-                        </li>
-                        <li><a href="https://bere.al/hugo.oo"><img  class="icon icon-bere minder" src="bereal.jpg" alt="">
-                        </a></li>
-                    </ul>
+                    <script src="js/display.js"></script>
                 </div>
             </div>
         </div>
+        <script src="js/game.js"></script>
+    </div>
 
-        <div id="window-documents" class="window">
-            <div class="title-bar" id="window-documents-header">
-                <div class="title">
-                    <img src="documents.png" alt="Documents" class="mar taskbar-icon">
-                    Portfolio
-                </div>
-                <div class="window-controls">
-                    <button class="minimize-button" onclick="minimizeWindow('documents')"></button>
-                    <button class="maximize-button" onclick="toggleFullscreen('documents')"></button>
-                    <button class="close-button" onclick="closeWindow('documents')"></button>
-                </div>
+    </div>
+
+    <div id="window-my-computer" class="window">
+        <div class="title-bar" id="window-my-computer-header">
+            <div class="title">
+                <img src="XPIcon.webp" alt="My Computer" class="mar taskbar-icon">
+                Mijn Computer
             </div>
-            <div class="window-content">
-                <div class="msn-content">
-                    <div class="werk"> 
-                        <img class="werk-img"  src="port/pet.jpeg" alt="">
-                        <h3>
-                            Software Solutions Developer
-                        </h3>
-                        <h4>
-                            CircularPET · Stage · feb. 2024 - heden · 2 mnd
-                        </h4>
-                    </div>
-                    <div class="werk"> 
-                        <img class="werk-img"  src="port/hva.jpeg" alt="">
-                        <h3>
-                            student mentor / studievenerging SIT
-                        </h3>
-                        <h4>
-                            Hogeschool van Amsterdam · Parttime · aug. 2023 - heden · 8 mnd
-                        </h4>
-                    </div>
-                    <div class="werk"> 
-                        <img class="werk-img"  src="port/huis.jpeg" alt="">
-                        <h3>
-                           Medewerker
-                        </h3>
-                        <h4>
-                            Studentaanhuis · Parttime · feb. 2023 - jan. 2024 · 1 jr
-                        </h4>
-                    </div>
-                    <div class="werk"> 
-                        <img class="werk-img"  src="port/coolbue.jpg" alt="">
-                        <h3>
-                            Advies / Verkoopmedewerker
-                        </h3>
-                        <h4>
-                            Coolblue · Parttime · jul. 2020 - 2023
-                        </h4>
-                    </div>
-                    <div class="werk"> 
-                        <img class="werk-img"  src="port/premiums.jpg" alt="">
-                        <h3> 
-                            Back-end development / accountmanager
-                        </h3>
-                        <h4>
-                            PREMIUMS · Stage PREMIUMS · Stage feb. 2021 - apr. 2021
-                        </h4>
-                    </div>
-                    <div class="werk"> 
-                        <img class="werk-img"  src="port/apple.jpg" alt="">
-                        <h3>
-                            Specialist
-                        </h3>
-                        <h4>
-                            Apple · Parttime Apple · Parttime okt. 2019 - jan. 2020
-                       </h4>
-                    </div>
-                    <div class="werk"> 
-                        <img class="werk-img"  src="port/jujst.jpg" alt="">
-                        <h3> 
-                            Full-stack development 
-                        </h3>
-                        <h4>
-                            JustPremium, A GumGum Company · Stage feb. 2022 - apr. 2022
-                        </h4>
-                    </div>
-                    <div class="werk"> 
-                        <img class="werk-img"  src="port/inter.jpg" alt="">
-                        <h3> 
-                            Acquisiteur  
-                        </h3>
-                        <h4>
-                            Intertoys · ParttimeIntertoys · Parttime mrt. 2018 - jul. 2019
-                        </h4>
-                    </div>
-                    <!-- <div class="werk"> 
-                        <img class="werk-img"  src="port/landmark.jpg" alt="">
-                        <h3> 
-                            Kelner 
-                        </h3>
-                        <h4>
-                            JLandmarkt ParttimeLandmarkt · Parttime mrt. 2017 - feb. 2018
-                        </h4>
-                    </div> -->
+            <div class="window-controls">
+                <button class="minimize-button" onclick="minimizeWindow('my-computer')"></button>
+                <button class="maximize-button" onclick="toggleFullscreen('my-computer')"></button>
+                <button class="close-button" onclick="closeWindow('my-computer')"></button>
+            </div>
+        </div>
+        <div class="window-content">
+            <div class="msn-content extra   ">
+                <div class="werk">
+
+                    <img class="profielfoto" src="profielfoto.jpeg" alt="">
+                </div>
+
+                <div class="werk">
+                    <h3>
+                        Hugo van der Geest 
+                    </h3>
+                    <h4>
+                        Ik ben een serieuze, sociale en creatieve jongeman. Ik heb veel kennis van allerlei software programma's. Ook heb ik veel ervaring met programmeertalen en heb meerdere media projecten afgrond: websites, logo's en videoclips. Door mijn ervaring in de horeca weet ik van aanpakken en kan ik goed met stress omgaan. Door mijn werkervaring en training bij Apple Amsterdam en coolblue heb ik kennis van de Retail en heb ik uitstekend met klanten leren omgaan.
+                    </h4>
                 </div>
             </div>
         </div>
+    </div>
+
+    <div id="window-msn" class="window">
+        <div class="title-bar" id="window-msn-header">
+            <div class="title">
+                <img src="msn.webp" alt="MSN" class="mar taskbar-icon">
+                MSN
+            </div>
+            <div class="window-controls">
+                <button class="minimize-button" onclick="minimizeWindow('msn')"></button>
+                <button class="maximize-button" onclick="toggleFullscreen('msn')"></button>
+                <button class="close-button" onclick="closeWindow('msn')"></button>
+            </div>
+        </div>
+        <div class="window-content">
+            <div class="msn-content">
+                <ul class="msn-icon-list">
+                    <li><a href="https://nl.linkedin.com/in/hugo-van-der-geest-a4222219a" target="_blank"
+                            class="icon icon-linkedin"><i class="fab fa-linkedin"></i> </a></li>
+                    <li><a href="https://api.whatsapp.com/send/?phone=%2B31639865297&text&type=phone_number&app_absent=0"
+                            target="_blank" class="icon icon-whatsapp"><i class="fab fa-whatsapp"></i> </a></li>
+                    <li><a href="https://github.com/HugovanderGeest" class="icon icon-gitlab"><i
+                                class="fa-brands fa-github"></i>
+                        </a></li>
+                    <li><a href="https://gitlab.fdmci.hva.nl/bim2_0/studenten/leergroepb/tribe_michel/van_der_geest_hugo_blok_1"
+                            class="icon icon-github"><i class="fa-brands fa-gitlab"></i>
+                        </a></li>
+                    <li><a href="mailto:hugo.vdg@outlook.com?&subject=Contact vanuit website&body=Gelieven hier uw vraag stellen via de mail of telefoonnummer 0639865297"
+                            class="icon icon-mail"><i class="fas fa-envelope"></i>
+                        </a></li>
+                    <li><a href="https://www.snapchat.com/add/hugoo.vdg" class="icon icon-snapchat"><i
+                                class="fa-brands fa-snapchat"></i>
+                        </a></li>
+                    <li><a href="https://www.instagram.com/hugo.vdg/" class="icon icon-instagram"><i
+                                class="fa-brands fa-instagram"></i>
+                        </a></li>
+                    <li><a href="discord.com/users/243437082800947202" class="icon icon-discord"><i
+                                class="fa-brands fa-discord"></i>
+                        </a></li>
+                    <li><a href="https://untappd.com/user/HugoVDG" class="icon icon-untappd"><i
+                                class="fa-brands fa-untappd"></i>
+                        </a></li>
+                    <li><a href="https://open.spotify.com/playlist/7h3C56rQtWwKPDJjDCqwkD?si=5c952ad85a86463f"
+                            class="icon icon-spotify"><i class="fa-brands fa-spotify"></i> </a>
+                    </li>
+                    <li><a href="https://steamcommunity.com/profiles/76561198105181918/" class="icon icon-steam"><i
+                                class="fa-brands fa-steam"></i> </a>
+                    </li>
+                    <li><a href="https://bere.al/hugo.oo"><img class="icon icon-bere minder" src="bereal.jpg" alt="">
+                        </a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div id="window-documents" class="window">
+        <div class="title-bar" id="window-documents-header">
+            <div class="title">
+                <img src="documents.png" alt="Documents" class="mar taskbar-icon">
+                Werkervaring
+            </div>
+            <div class="window-controls">
+                <button class="minimize-button" onclick="minimizeWindow('documents')"></button>
+                <button class="maximize-button" onclick="toggleFullscreen('documents')"></button>
+                <button class="close-button" onclick="closeWindow('documents')"></button>
+            </div>
+        </div>
+        <div class="window-content">
+            <div class="msn-content">
+                <div class="werk">
+                    <img class="werk-img" src="port/pet.jpeg" alt="">
+                    <h3>
+                        Software Solutions Developer
+                    </h3>
+                    <h4>
+                        CircularPET · Stage · feb. 2024 - heden · 2 mnd
+                    </h4>
+                </div>
+                <div class="werk">
+                    <img class="werk-img" src="port/hva.jpeg" alt="">
+                    <h3>
+                        student mentor / studievenerging SIT
+                    </h3>
+                    <h4>
+                        Hogeschool van Amsterdam · Parttime · aug. 2023 - heden · 8 mnd
+                    </h4>
+                </div>
+                <div class="werk">
+                    <img class="werk-img" src="port/huis.jpeg" alt="">
+                    <h3>
+                        Medewerker
+                    </h3>
+                    <h4>
+                        Studentaanhuis · Parttime · feb. 2023 - jan. 2024 · 1 jr
+                    </h4>
+                </div>
+                <div class="werk">
+                    <img class="werk-img" src="port/coolbue.jpg" alt="">
+                    <h3>
+                        Advies / Verkoopmedewerker
+                    </h3>
+                    <h4>
+                        Coolblue · Parttime · jul. 2020 - 2023
+                    </h4>
+                </div>
+                <div class="werk">
+                    <img class="werk-img" src="port/premiums.jpg" alt="">
+                    <h3>
+                        Back-end development / accountmanager
+                    </h3>
+                    <h4>
+                        PREMIUMS · Stage PREMIUMS · Stage feb. 2021 - apr. 2021
+                    </h4>
+                </div>
+                <div class="werk">
+                    <img class="werk-img" src="port/apple.jpg" alt="">
+                    <h3>
+                        Specialist
+                    </h3>
+                    <h4>
+                        Apple · Parttime Apple · Parttime okt. 2019 - jan. 2020
+                    </h4>
+                </div>
+                <div class="werk">
+                    <img class="werk-img" src="port/jujst.jpg" alt="">
+                    <h3>
+                        Full-stack development
+                    </h3>
+                    <h4>
+                        JustPremium, A GumGum Company · Stage feb. 2022 - apr. 2022
+                    </h4>
+                </div>
+                <div class="werk">
+                    <img class="werk-img" src="port/inter.jpg" alt="">
+                    <h3>
+                        Acquisiteur
+                    </h3>
+                    <h4>
+                        Intertoys · ParttimeIntertoys · Parttime mrt. 2018 - jul. 2019
+                    </h4>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="window-music" class="window">
+        <div class="title-bar" id="window-music-header">
+            <div class="title">
+                <img src="music.png" alt="Documents" class="mar taskbar-icon">
+                Intresses
+            </div>
+            <div class="window-controls">
+                <button class="minimize-button" onclick="minimizeWindow('music')"></button>
+                <button class="maximize-button" onclick="toggleFullscreen('music')"></button>
+                <button class="close-button" onclick="closeWindow('music')"></button>
+            </div>
+        </div>
+        <div class="window-content">
+            <div class="msn-content">
+                <div class="werk">
+                    <!-- <img class="werk-img"  src="port/pet.jpeg" alt=""> -->
+                    <h3>
+                        Muziek
+                    </h3>
+                    <h4>
+                        De inspiratie van het maken van muziek komt voornamelijk uit mijn omgeving, dus zelf ook maar
+                        aan begonnen.
+                    </h4>
+                </div>
+                <div class="werk">
+                    <!-- <img class="werk-img"  src="port/pet.jpeg" alt=""> -->
+                    <h3>
+                        Programmeren
+                    </h3>
+                    <h4>
+
+
+                        Vanaf Jongs af aan geïnteresseerd geweest in veel code talen, nu voornamelijk bezig met web
+                        hosting en server beheer. zoals deze website, die draait op een oude pc in de meterkast.
+                    </h4>
+                </div>
+                <div class="werk">
+                    <!-- <img class="werk-img"  src="port/pet.jpeg" alt=""> -->
+                    <h3>
+                        Teamsport
+                    </h3>
+                    <h4>
+
+
+                        Ik volleybal in het weekend en speel soms een wedstrijd tussendoor. Ik ben lang, dus sta vaak
+                        bij het net. Ook ben ik officieel KNVB-scheidsrechter.
+                    </h4>
+                </div>
+                <div class="werk">
+                    <!-- <img class="werk-img"  src="port/pet.jpeg" alt=""> -->
+                    <h3>
+                        Ontwerpen
+                    </h3>
+                    <h4>
+
+
+                        Vroeger veel gedaan, intro voor youtubers die keihard muziek knallen en waar tekst Doorheen
+                        vlieg, net zo als deze banaan, ook hier en daar een logo of banner.
+                    </h4>
+                </div>
+                <div class="werk">
+                    <!-- <img class="werk-img"  src="port/pet.jpeg" alt=""> -->
+                    <h3>
+                        Koken
+                    </h3>
+                    <h4>
+
+
+                        Meest voorkomende hobby denk ik, maar vind het wel heel leuk, zeker als student zelf prakjes te
+                        verzinnen en het voorschotelen aan vrienden alsof het heel origineel is.
+                    </h4>
+                </div>
+                <div class="werk">
+                    <!-- <img class="werk-img"  src="port/pet.jpeg" alt=""> -->
+                    <h3>
+                        Vrije tijdsbesteding
+                    </h3>
+                    <h4>
+
+
+                        Uitgaan in de stad heb ik in het verleden, ben nu voornamelijk te vinden op Huisfeesten en
+                        optreden. Potje gamen met wat vrienden is ook zeker niet te missen.
+                    </h4>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="window-star" class="window">
+        <div class="title-bar" id="window-star-header">
+            <div class="title">
+                <img src="star.png" alt="Documents" class="mar taskbar-icon">
+                Intresses
+            </div>
+            <div class="window-controls">
+                <button class="minimize-button" onclick="minimizeWindow('star')"></button>
+                <button class="maximize-button" onclick="toggleFullscreen('star')"></button>
+                <button class="close-button" onclick="closeWindow('star')"></button>
+            </div>
+        </div>
+        <div class="window-content">
+            <div class="msn-content">
+
+                <a href="https://bgv-voer.nl/" target="_blank">
+                    <div class="werker bgv">
+                        <img class="werk-img" src="/intresses/bgv.png" alt="">
+                        <h3>
+                            BGV Voer
+                        </h3>
+                        <h4>
+                            Project om varkens op een ethische manier te voeren en ze een eerlijk leven te bieden.
+                        </h4>
+                    </div>
+                </a>
+
+                <a href="https://linkdoor.nl/" target="_blank">
+                    <div class="werker linkdoor">
+                        <img class="werker-img" src="/intresses/linkdoor.png" alt="">
+                        <h3>
+                            Linkdoor
+                        </h3>
+                        <h4>
+                            De webpagina van HBO-ICT om met alle info doorgelinkt te worden naar relevante
+                            informatie
+                        </h4>
+                    </div>
+                </a>
+
+                <a href="https://micheldegrote.nl/" target="_blank">
+                    <div class="werker djmicheldegrote">
+                        <img class="werker-img" src="/intresses/mdg.png" alt="">
+                        <h3>
+                            DJ Michel De Grote
+                        </h3>
+                        <h4>
+                            website voor een dj van 40up en grote feesten door het hele land
+                        </h4>
+                    </div>
+                </a>
+
+                <a href="https://muziek40up.nl/" target="_blank">
+                    <div class="werker up">
+                        <img class="werker-img" src="/intresses/muziek.png" alt="">
+                        <h3>
+                            40UP
+                        </h3>
+                        <h4>
+                            Een app om nummers aan te vragen voor 1000e mensen op draai locaties
+                        </h4>
+                    </div>
+                </a>
+
+                <a href="https://svjurista.nl/" target="_blank">
+                    <div class="werker svjurista">
+                        <img class="werker-img" src="/intresses/jur.png" alt="">
+                        <h3>
+                            SV Jurista
+                        </h3>
+                        <h4>
+                            Hoofdwebsite van de studievereging SV Jurista
+                        </h4>
+                    </div>
+                </a>
+
+                <a href="https://yvonnenijs.nl/" target="_blank">
+                    <div class="werker yvonne">
+                        <img class="werker-img" src="/intresses/yvo.png" alt="">
+                        <h3>
+                            Yvonne
+                        </h3>
+                        <h4>
+                            website van Yvonne, een professionele schilderes
+                        </h4>
+                    </div>
+                </a>
+
+            </div>
+        </div>
+    </div>
+
+
     </div>
 
 
