@@ -252,7 +252,7 @@ function showClippy(message) {
     clippyMessage.textContent = message;
     setTimeout(function() {
       clippy.style.display = 'block'; // Clippy becomes visible and animation starts due to CSS
-    }, 5000); // Delay showing Clippy for 5 seconds
+    }, 10000); // Delay showing Clippy for 5 seconds
   }
 
   function hideClippy() {

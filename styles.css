@@ -804,7 +804,7 @@ a {
     right: 20px;
     z-index: 1001;
     /* Initial bounce in with delay */
-    animation: bounceInRight 0.5s, bounce 1s infinite 3.5s;
+    animation: bounceInRight 0.5s, bounce 1s infinite 7.5s;
   }
   
   #clippy-message {
