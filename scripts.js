@@ -20,15 +20,15 @@ document.getElementById('startButton').addEventListener('click', function() {
     bootImage.classList.remove('hidden');
     bootImage.classList.add('bootFadeIn');
 
-    if (document.documentElement.requestFullscreen) {
-        document.documentElement.requestFullscreen();
-    } else if (document.documentElement.mozRequestFullScreen) { /* Firefox */
-        document.documentElement.mozRequestFullScreen();
-    } else if (document.documentElement.webkitRequestFullscreen) { /* Chrome, Safari & Opera */
-        document.documentElement.webkitRequestFullscreen();
-    } else if (document.documentElement.msRequestFullscreen) { /* IE/Edge */
-        document.documentElement.msRequestFullscreen();
-    }
+    // if (document.documentElement.requestFullscreen) {
+    //     document.documentElement.requestFullscreen();
+    // } else if (document.documentElement.mozRequestFullScreen) { /* Firefox */
+    //     document.documentElement.mozRequestFullScreen();
+    // } else if (document.documentElement.webkitRequestFullscreen) { /* Chrome, Safari & Opera */
+    //     document.documentElement.webkitRequestFullscreen();
+    // } else if (document.documentElement.msRequestFullscreen) { /* IE/Edge */
+    //     document.documentElement.msRequestFullscreen();
+    // }
 
     // Assuming your GIF plays for around 5 seconds before fading out
     setTimeout(() => {
@@ -45,8 +45,8 @@ document.getElementById('startButton').addEventListener('click', function() {
             bootScreen.style.display = 'none';
             // Optionally, reveal the main content. For example:
             // document.getElementById('desktop').classList.remove('hidden');
-        }, 2000 ); // Matches the duration of the fadeOut animation
-    }, 5000 ); // Adjust as needed to match the duration of your GIF
+        },  ); // Matches the duration of the fadeOut animation
+    },  ); // Adjust as needed to match the duration of your GIF
 });
 
 function closeWindow(id) {
@@ -101,9 +101,23 @@ document.getElementById('desktop').addEventListener('click', function(e) {
     }
 });
 
-// Functie om het slepen te initialiseren
+function isMobileDevice() {
+    return window.innerWidth <= 600;
+};
+
 function dragElement(element) {
     var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
+
+    // If the device is a mobile device, position the window at the top left
+    if(isMobileDevice()) {
+        element.style.top = '0px';
+        element.style.left = '0px';
+
+    } else {
+        // If the device is not a mobile device, randomize the window placement
+        element.style.top = Math.random() * window.innerHeight + 'px';
+        element.style.left = Math.random() * window.innerWidth + 'px';
+    }
 
     function elementDrag(e) {
         e = e || window.event;
@@ -139,11 +153,10 @@ function dragElement(element) {
     }
 }
 
-    // Initialize the drag for each window
-    document.querySelectorAll('.window').forEach(function(win) {
-        dragElement(win);
-    });
-
+// Initialize the drag for each window
+document.querySelectorAll('.window').forEach(function(win) {
+    dragElement(win);
+});
 // Pseudo-code for snapping windows
 function elementDrag(e) {
     e = e || window.event;
@@ -221,7 +234,7 @@ function openWindow(id) {
                 message = "Ah, Minesweeper! suc7";
                 break;
             case 'msn':
-                message = "Hier can je mij contacteren";
+                message = "Hier kan je mij contacteren";
                 break;
             case 'documents':
                 message = "Een deel van mijn banen die ik gehad heb";
