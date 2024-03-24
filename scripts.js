@@ -47,7 +47,7 @@ document.getElementById('startButton').addEventListener('click', function() {
             // document.getElementById('desktop').classList.remove('hidden');
         },  ); // Matches the duration of the fadeOut animation
     }, 5000 ); // Adjust as needed to match the duration of your GIF
-}, 2000 );
+}, 5000 );
 
 function closeWindow(id) {
     var window = document.getElementById('window-' + id);
