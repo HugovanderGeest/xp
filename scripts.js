@@ -245,16 +245,16 @@ function openWindow(id) {
             case 'star':
                 message = "Dit zijn website die ik door de jaren heb gemaakt heb, klik er op!";
                 break;
+            case 'mspaint':
+                message = "hallo, hier kan je tekenen, weet wel. iedereen kan dit zien.";
+                break;
         }
 
         // Update and show Clippy's message
-        var clippyMessage = document.getElementById('clippy-message');
-        clippyMessage.textContent = message;
-        document.getElementById('clippy-assistant').style.display = 'block';
+        showClippy(message);
 
         taskbarItem.classList.add('active');
         taskbarText.style.display = 'inline'; // Show the text for the active icon
-        setTimeout(hideClippy, 2000);
     }
 }
 
@@ -263,15 +263,17 @@ function showClippy(message) {
     var clippyMessage = document.getElementById('clippy-message');
   
     clippyMessage.textContent = message;
-    setTimeout(function() {
-      clippy.style.display = 'block'; // Clippy becomes visible and animation starts due to CSS
-    }, 10000); // Delay showing Clippy for 5 seconds
-  }
+    clippy.style.display = 'block'; // Clippy becomes visible
+    clippy.classList.remove('fade-out'); // Remove fade-out class if present
+}
 
-  function hideClippy() {
+function hideClippy() {
     var clippy = document.getElementById('clippy-assistant');
     clippy.classList.add('fade-out');
-  }
+    setTimeout(() => {
+        clippy.style.display = 'none';
+    }, 1000); // Match the duration of the fade-out animation
+}
 
   // Example usage
 // Get the current hour
@@ -288,7 +290,7 @@ if (currentHour < 12) {
 }
 
 // Show the greeting
-showClippy(greeting + ", Ik ben Clippy, Welkom op Hugo zijn website");
+showClippy(greeting + ", Ik ben Clippy, welkom op Hugo zijn website");
   
 
 // Adjust closeWindow function as well
@@ -311,7 +313,9 @@ function closeWindow(id) {
 }
 
 
-
+document.addEventListener('DOMContentLoaded', function() {
+    dragElement(document.getElementById("window-mspaint"));
+});
 
 // Wait for the full page to load
 document.addEventListener('DOMContentLoaded', function() {
@@ -383,3 +387,5 @@ function toggleFullscreen(id) {
         elem.classList.add('maximized');
     }
 }
+
+

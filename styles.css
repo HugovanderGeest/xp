@@ -868,3 +868,30 @@ a {
   width: 100px;
   height: auto;
 }
+
+.window .title-bar {
+  background: #0055e5;
+  color: white;
+  padding: 5px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: move;
+}
+
+.window .window-controls button {
+  padding: 0;
+  cursor: pointer;
+  width: 25px;
+  height: 25px;
+  background-repeat: no-repeat;
+  background-position: center;
+  margin-right: 4px;
+  border: 1.5px solid white;
+  border-radius: 5px;
+}
+
+
+#paintCanvas {
+  width: 500px;
+}

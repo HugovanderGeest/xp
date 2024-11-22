@@ -66,6 +66,10 @@
                     <img src="star.png" alt="Portfolio" class="taskbar-icon">
                     <span class="taskbar-text">Portfolio</span>
                 </div>
+                <div class="taskbar-item" data-window="mspaint" onclick="openWindow('mspaint')">
+                    <img src="paint.png" alt="MSPaint" class="taskbar-icon">
+                    <span class="taskbar-text">MSPaint</span>
+                </div>
             </div>
             <div class="system-tray">
 
@@ -96,6 +100,10 @@
 
         <div class="icon rije" onclick="openWindow('star')" style="background-image: url('star.png');">
             <p>Portfolio</p>
+        </div>
+
+        <div class="icon rije" onclick="openWindow('mspaint')" style="background-image: url('paint.png');">
+            <p>MSPaint</p>
         </div>
 
         <!-- Vensters -->
@@ -209,9 +217,11 @@
                     <li><a href="https://www.instagram.com/hugo.vdg/" class="icon icon-instagram"><i
                                 class="fa-brands fa-instagram"></i>
                         </a></li>
-                    <li><a href="discord.com/users/243437082800947202" class="icon icon-discord"><i
-                                class="fa-brands fa-discord"></i>
-                        </a></li>
+                        <li>
+                            <a href="javascript:void(0);" class="icon icon-discord" onclick="copyDiscordTag()">
+                                <i class="fa-brands fa-discord"></i>
+                            </a>
+                        </li>
                     <li><a href="https://untappd.com/user/HugoVDG" class="icon icon-untappd"><i
                                 class="fa-brands fa-untappd"></i>
                         </a></li>
@@ -522,6 +532,25 @@
         </div>
     </div>
 
+        <!-- Vensters -->
+        <div id="window-mspaint" class="window">
+            <div class="title-bar" id="window-mspaint-header">
+                <div class="title">
+                    <img src="paint.png" alt="MSPaint" class="mar taskbar-icon">
+                    MSPaint
+                </div>
+                <div class="window-controls">
+                    <button class="minimize-button" onclick="minimizeWindow('mspaint')"></button>
+                    <button class="maximize-button" onclick="toggleFullscreen('mspaint')"></button>
+                    <button class="close-button" onclick="closeWindow('mspaint')"></button>
+                </div>
+            </div>
+            <div class="window-content">
+                <button id="eraserButton">Eraser</button>
+                <label for="colorPicker">Color:</label>
+                <input type="color" id="colorPicker" value="#000000">
+                <canvas id="paintCanvas" width="1600" height="1200" style="border:1px solid #000000;"></canvas>            </div>
+        </div>
 
     </div>
 
@@ -531,6 +560,98 @@
 
 
     <script src="scripts.js"></script>
+    <script>
+function copyDiscordTag() {
+    const discordTag = "huo";
+    const tempInput = document.createElement("input");
+    tempInput.value = discordTag;
+    document.body.appendChild(tempInput);
+    tempInput.select();
+    document.execCommand("copy");
+    document.body.removeChild(tempInput);
+
+    // Display "Gekoppieerd" message
+    const clippyMessage = document.getElementById('clippy-message');
+    clippyMessage.textContent = "Gekoppieerd";
+    document.getElementById('clippy-assistant').style.display = 'block';
+
+    // Redirect to Discord add friend page after 2 seconds
+    setTimeout(() => {
+        window.location.href = "https://discord.com/channels/@me";
+    }, 2000);
+}
+
+
+    </script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const canvas = document.getElementById('paintCanvas');
+        const ctx = canvas.getContext('2d');
+        const eraserButton = document.getElementById('eraserButton');
+        const colorPicker = document.getElementById('colorPicker');
+        let painting = false;
+        let erasing = false;
+        let currentColor = '#000000';
+    
+        function startPosition(e) {
+            painting = true;
+            draw(e);
+        }
+    
+        function endPosition() {
+            painting = false;
+            ctx.beginPath();
+            saveDrawing();
+        }
+    
+        function draw(e) {
+            if (!painting) return;
+            ctx.lineWidth = 5;
+            ctx.lineCap = 'round';
+            ctx.strokeStyle = erasing ? 'white' : currentColor;
+    
+            const rect = canvas.getBoundingClientRect();
+            const x = (e.clientX || e.touches[0].clientX) - rect.left;
+            const y = (e.clientY || e.touches[0].clientY) - rect.top;
+    
+            ctx.lineTo(x, y);
+            ctx.stroke();
+            ctx.beginPath();
+            ctx.moveTo(x, y);
+        }
+    
+        function saveDrawing() {
+            localStorage.setItem('drawing', canvas.toDataURL());
+        }
+    
+        function loadDrawing() {
+            const dataURL = localStorage.getItem('drawing');
+            if (dataURL) {
+                const img = new Image();
+                img.src = dataURL;
+                img.onload = () => ctx.drawImage(img, 0, 0);
+            }
+        }
+    
+        eraserButton.addEventListener('click', function() {
+            erasing = !erasing;
+            eraserButton.textContent = erasing ? 'Draw' : 'Eraser';
+        });
+    
+        colorPicker.addEventListener('input', function() {
+            currentColor = colorPicker.value;
+        });
+    
+        canvas.addEventListener('mousedown', startPosition);
+        canvas.addEventListener('mouseup', endPosition);
+        canvas.addEventListener('mousemove', draw);
+        canvas.addEventListener('touchstart', startPosition);
+        canvas.addEventListener('touchend', endPosition);
+        canvas.addEventListener('touchmove', draw);
+    
+        loadDrawing();
+    });
+    </script>
 </body>
 
 </html>
