@@ -834,6 +834,12 @@ a {
     top: 170px;
     left: 160px;
   }
+
+  .rijee {
+    position: absolute;
+    top: 310px;
+    left: 160px;
+  }
 }
 
 .fade-out {
@@ -893,5 +899,33 @@ a {
 
 
 #paintCanvas {
-  width: 500px;
+  width: 530px;
+}
+
+canvas {
+  width: 100%;
+  height: auto;
+}
+
+
+.toolbar {
+  margin-bottom: 10px;
+}
+
+.toolbar button {
+  cursor: pointer;
+  font-size: 24px;
+  width: 70px;
+  height: 70px;
+}
+
+.toolbar label {
+  font-size: 24px;
+  margin-right: 10px;
+  cursor: pointer;
+}
+
+#colorPicker {
+  width: 70px;
+  height: 70px;
 }
