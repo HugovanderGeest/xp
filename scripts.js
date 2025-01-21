@@ -207,22 +207,36 @@ dragElement(document.getElementById("window-my-computer"));
 dragElement(document.getElementById("window-edge")); // Add this line
 
 function openWindow(id) {
-    var window = document.getElementById('window-' + id);
+    var windowElement = document.getElementById('window-' + id);
     var taskbarItem = document.querySelector('.taskbar-item[data-window="' + id + '"]');
     var taskbarText = taskbarItem.querySelector('.taskbar-text');
 
-    if (window.classList.contains('closing')) {
-        window.classList.remove('closing');
+    if (windowElement.classList.contains('closing')) {
+        windowElement.classList.remove('closing');
     }
-    window.classList.add('opening');
+    windowElement.classList.add('opening');
 
-    if (window.style.display === 'block') {
-        window.style.display = 'none';
+    if (windowElement.style.display === 'block') {
+        windowElement.style.display = 'none';
         taskbarItem.classList.remove('active');
         taskbarText.style.display = 'none';
     } else {
-        window.style.display = 'block';
-        window.style.zIndex = highestZIndex++;
+        // Show the window and ensure it is positioned in the center
+        windowElement.style.display = 'block';
+        windowElement.style.zIndex = highestZIndex++;
+
+        // Calculate and set the centered position
+        var viewportWidth = window.innerWidth;
+        var viewportHeight = window.innerHeight;
+        var windowWidth = windowElement.offsetWidth;
+        var windowHeight = windowElement.offsetHeight;
+
+        // Prevent the window from moving outside the screen
+        var left = Math.max((viewportWidth - windowWidth) / 2, 0);
+        var top = Math.max((viewportHeight - windowHeight) / 2, 0);
+
+        windowElement.style.left = left + 'px';
+        windowElement.style.top = top + 'px';
 
         // Determine Clippy's message based on the window ID
         var message;
@@ -257,6 +271,7 @@ function openWindow(id) {
         taskbarText.style.display = 'inline'; // Show the text for the active icon
     }
 }
+
 
 function showClippy(message) {
     var clippy = document.getElementById('clippy-assistant');

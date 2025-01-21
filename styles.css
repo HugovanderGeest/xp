@@ -110,13 +110,15 @@ html {
   position: absolute;
   max-width: 600px;
   transition: max-width 0.5s, max-height 0.5s;
-  top: 10px;
-  left: 150px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   border: 3px solid #0055e5;
   background-color: #fff;
   display: none;
   border-radius: 5px;
 }
+
 
 .werker-img,
 .werk-img {
