@@ -141,6 +141,47 @@
             background-color: #444;
         }
 
+        /* Archive styles */
+        .archive-btn {
+            display: inline-block;
+            margin-left: 10px;
+            padding: 8px 16px;
+            background-color: #6c757d;
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+            transition: background-color 0.3s;
+            border: none;
+            cursor: pointer;
+        }
+
+        .archive-btn:hover {
+            background-color: #5a6268;
+        }
+
+        .archive-entry {
+            opacity: 0.7;
+            background-color: #f8f9fa;
+        }
+
+        .archive-date {
+            color: #dc3545;
+            font-size: 0.8em;
+            margin-top: 5px;
+        }
+
+        .archive-toggle {
+            margin-bottom: 20px;
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .archive-status {
+            color: #666;
+            font-style: italic;
+        }
+
         @media (max-width: 768px) {
             body {
                 padding: 10px;
@@ -158,11 +199,76 @@
                 padding: 10px;
             }
         }
+
+        /* Add new styles for links */
+        .entry-text a {
+            color: #0078d4;
+            text-decoration: none;
+            margin-right: 10px;
+            display: inline-block;
+        }
+
+        .entry-text a:hover {
+            text-decoration: underline;
+        }
+
+        .link-container {
+            margin-top: 10px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .link-input {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 10px;
+            align-items: center;
+        }
+
+        .link-input input {
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            flex: 1;
+        }
+
+        .add-link-btn {
+            background-color: #28a745;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .add-link-btn:hover {
+            background-color: #218838;
+        }
+
+        .remove-link-btn {
+            background-color: #dc3545;
+            color: white;
+            border: none;
+            padding: 4px 8px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 12px;
+        }
+
+        .remove-link-btn:hover {
+            background-color: #c82333;
+        }
     </style>
 </head>
 <body>
     <div class="container">
-        <a href="/" class="back-btn">← Terug naar Home</a>
+        <div class="archive-toggle">
+            <a href="/" class="back-btn">← Terug naar Home</a>
+            <button class="archive-btn" id="toggleArchive">Archief Bekijken</button>
+            <span class="archive-status" id="archiveStatus"></span>
+        </div>
         <div class="learning-goal">
             <h3>Mijn Leerdoel:</h3>
             <p>Specifiek: Ik wil mijn consultancyvaardigheden verder ontwikkelen, met een focus op probleemanalyse, adviesvaardigheden, communicatie en change management in een IT-context. Dit doe ik door praktijkopdrachten, interviews, feedback en het toepassen van strategieën zoals doelgericht luisteren en assertiviteit in gesprekken.</p>
@@ -177,148 +283,245 @@
     </div>
 
     <script>
-        // Load entries from localStorage
-        function loadLogEntries() {
-            const entries = JSON.parse(localStorage.getItem('logbookEntries') || '[]');
-            const entriesContainer = document.getElementById('logbookEntries');
-            entriesContainer.innerHTML = '';
-            
-            entries.forEach((entry, index) => {
-                const entryElement = document.createElement('div');
-                entryElement.className = 'logbook-entry';
-                entryElement.dataset.index = index;
-                entryElement.innerHTML = `
-                    <div class="entry-date">${new Date(entry.date).toLocaleString('nl-NL')}</div>
-                    <p class="entry-text">${entry.text}</p>
-                    <button class="edit-btn">✏️</button>
-                    <button class="delete-btn">🗑️</button>
-                `;
-
-                // Add event listeners directly to the buttons
-                const editBtn = entryElement.querySelector('.edit-btn');
-                const deleteBtn = entryElement.querySelector('.delete-btn');
-
-                editBtn.addEventListener('click', function() {
-                    editEntry(index);
-                });
-
-                deleteBtn.addEventListener('click', function() {
-                    deleteEntry(index);
-                });
-
-                entriesContainer.appendChild(entryElement);
-            });
+        // Function to convert URLs in text to clickable links
+        function linkify(text) {
+            const urlRegex = /(https?:\/\/[^\s]+)/g;
+            return text.replace(urlRegex, url => `<a href="${url}" target="_blank">${new URL(url).hostname}</a>`);
         }
 
-        // Add new entry
+        let showingArchive = false;
+
+        // Load entries from localStorage
+        function loadLogEntries() {
+            try {
+                let entries = JSON.parse(localStorage.getItem('logbookEntries') || '[]');
+                let archivedEntries = JSON.parse(localStorage.getItem('archivedEntries') || '[]');
+                const entriesContainer = document.getElementById('logbookEntries');
+                const archiveStatus = document.getElementById('archiveStatus');
+                const toggleButton = document.getElementById('toggleArchive');
+                
+                entriesContainer.innerHTML = '';
+                
+                // Display either active or archived entries
+                const displayEntries = showingArchive ? archivedEntries : entries;
+                
+                // Update UI elements
+                toggleButton.textContent = showingArchive ? 'Actieve Entries Bekijken' : 'Archief Bekijken';
+                archiveStatus.textContent = showingArchive 
+                    ? `Toont ${archivedEntries.length} gearchiveerde entries` 
+                    : `${archivedEntries.length} entries in archief`;
+                
+                displayEntries.forEach((entry, index) => {
+                    const entryElement = document.createElement('div');
+                    entryElement.className = `logbook-entry ${showingArchive ? 'archive-entry' : ''}`;
+                    entryElement.id = `entry-${index}`;
+                    
+                    // Process text to make links clickable
+                    const processedText = entry.links && entry.links.length > 0 
+                        ? `${entry.text}<div class="link-container">${entry.links.map(link => 
+                            `<a href="${link}" target="_blank">${new URL(link).hostname}</a>`).join('')}</div>`
+                        : linkify(entry.text);
+
+                    entryElement.innerHTML = `
+                        <div class="entry-date">${new Date(entry.date).toLocaleString('nl-NL')}</div>
+                        <p class="entry-text">${processedText}</p>
+                        ${showingArchive ? 
+                            `<div class="archive-date">Gearchiveerd op: ${new Date(entry.archiveDate).toLocaleString('nl-NL')}</div>` :
+                            `<button class="edit-btn" data-index="${index}">✏️</button>
+                             <button class="delete-btn" data-index="${index}">🗑️</button>`
+                        }
+                    `;
+                    entriesContainer.appendChild(entryElement);
+                });
+
+                // Only add event listeners for active entries
+                if (!showingArchive) {
+                    entriesContainer.addEventListener('click', function(e) {
+                        if (e.target.classList.contains('delete-btn')) {
+                            const index = parseInt(e.target.dataset.index);
+                            archiveEntry(index);
+                        } else if (e.target.classList.contains('edit-btn')) {
+                            const index = parseInt(e.target.dataset.index);
+                            editEntry(index);
+                        }
+                    });
+                }
+            } catch (error) {
+                console.error('Error loading entries:', error);
+                localStorage.setItem('logbookEntries', '[]');
+                localStorage.setItem('archivedEntries', '[]');
+            }
+        }
+
+        // Archive entry instead of deleting
+        function archiveEntry(index) {
+            try {
+                const entryElement = document.getElementById(`entry-${index}`);
+                if (!entryElement) return;
+
+                // Animate removal
+                entryElement.style.transition = 'all 0.3s ease-out';
+                entryElement.style.opacity = '0';
+                entryElement.style.transform = 'translateX(100%)';
+
+                // Move entry to archive
+                let entries = JSON.parse(localStorage.getItem('logbookEntries') || '[]');
+                let archivedEntries = JSON.parse(localStorage.getItem('archivedEntries') || '[]');
+                
+                const entryToArchive = entries[index];
+                entryToArchive.archiveDate = new Date().toISOString();
+                archivedEntries.unshift(entryToArchive); // Add to beginning of archive
+                
+                entries = entries.filter((_, i) => i !== index);
+                
+                localStorage.setItem('logbookEntries', JSON.stringify(entries));
+                localStorage.setItem('archivedEntries', JSON.stringify(archivedEntries));
+
+                // Remove element after animation
+                setTimeout(() => {
+                    entryElement.remove();
+                    loadLogEntries();
+                }, 300);
+            } catch (error) {
+                console.error('Error archiving entry:', error);
+                loadLogEntries();
+            }
+        }
+
+        // Add new entry with links
         function addLogEntry() {
             const textArea = document.getElementById('logEntry');
             const text = textArea.value.trim();
             
             if (!text) return;
             
-            const entries = JSON.parse(localStorage.getItem('logbookEntries') || '[]');
-            entries.push({
-                date: new Date().toISOString(),
-                text: text
-            });
-            
-            localStorage.setItem('logbookEntries', JSON.stringify(entries));
-            textArea.value = '';
-            loadLogEntries();
+            try {
+                const entries = JSON.parse(localStorage.getItem('logbookEntries') || '[]');
+                
+                // Extract URLs from the text
+                const urlRegex = /(https?:\/\/[^\s]+)/g;
+                const links = text.match(urlRegex) || [];
+                
+                entries.push({
+                    date: new Date().toISOString(),
+                    text: text,
+                    links: links
+                });
+                
+                localStorage.setItem('logbookEntries', JSON.stringify(entries));
+                textArea.value = '';
+                loadLogEntries();
+            } catch (error) {
+                console.error('Error adding entry:', error);
+                alert('Er ging iets mis bij het toevoegen van je entry. Probeer het opnieuw.');
+            }
         }
 
-        // Edit entry
+        // Edit entry with links
         function editEntry(index) {
-            const entries = JSON.parse(localStorage.getItem('logbookEntries') || '[]');
-            const entry = entries[index];
+            try {
+                const entries = JSON.parse(localStorage.getItem('logbookEntries') || '[]');
+                const entry = entries[index];
+                if (!entry) return;
+
+                const entryElement = document.getElementById(`entry-${index}`);
+                if (!entryElement) return;
+
+                const editForm = document.createElement('div');
+                editForm.innerHTML = `
+                    <textarea style="width: 100%; min-height: 100px; margin-bottom: 10px;">${entry.text}</textarea>
+                    <div class="link-container">
+                        ${(entry.links || []).map(link => `
+                            <div class="link-input">
+                                <input type="url" value="${link}">
+                                <button class="remove-link-btn">×</button>
+                            </div>
+                        `).join('')}
+                    </div>
+                    <button class="add-link-btn" style="margin-bottom: 10px;">+ Link toevoegen</button>
+                    <div>
+                        <button class="add-entry-btn" style="margin-right: 10px;">Opslaan</button>
+                        <button class="add-entry-btn" style="background-color: #666;">Annuleren</button>
+                    </div>
+                `;
+
+                const originalContent = entryElement.innerHTML;
+                entryElement.innerHTML = '';
+                entryElement.appendChild(editForm);
+
+                const [saveBtn, cancelBtn] = editForm.querySelectorAll('.add-entry-btn');
+                const textarea = editForm.querySelector('textarea');
+                const addLinkBtn = editForm.querySelector('.add-link-btn');
+                const linkContainer = editForm.querySelector('.link-container');
+
+                // Add new link input
+                addLinkBtn.addEventListener('click', () => {
+                    const linkInput = document.createElement('div');
+                    linkInput.className = 'link-input';
+                    linkInput.innerHTML = `
+                        <input type="url" placeholder="https://">
+                        <button class="remove-link-btn">×</button>
+                    `;
+                    linkContainer.appendChild(linkInput);
+
+                    // Add remove button listener
+                    linkInput.querySelector('.remove-link-btn').addEventListener('click', () => {
+                        linkInput.remove();
+                    });
+                });
+
+                // Add remove button listeners for existing links
+                editForm.querySelectorAll('.remove-link-btn').forEach(btn => {
+                    btn.addEventListener('click', () => {
+                        btn.closest('.link-input').remove();
+                    });
+                });
+
+                saveBtn.addEventListener('click', () => {
+                    const newText = textarea.value.trim();
+                    const linkInputs = editForm.querySelectorAll('.link-input input');
+                    const links = Array.from(linkInputs)
+                        .map(input => input.value.trim())
+                        .filter(link => link && link.startsWith('http'));
+
+                    if (newText) {
+                        entries[index].text = newText;
+                        entries[index].links = links;
+                        localStorage.setItem('logbookEntries', JSON.stringify(entries));
+                        loadLogEntries();
+                    }
+                });
+
+                cancelBtn.addEventListener('click', () => {
+                    entryElement.innerHTML = originalContent;
+                });
+            } catch (error) {
+                console.error('Error editing entry:', error);
+                loadLogEntries();
+            }
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            loadLogEntries();
             
-            // Create a temporary textarea for editing
-            const tempTextarea = document.createElement('textarea');
-            tempTextarea.value = entry.text;
-            tempTextarea.style.width = '100%';
-            tempTextarea.style.minHeight = '100px';
-            tempTextarea.style.marginBottom = '10px';
-            
-            // Create save and cancel buttons
-            const saveBtn = document.createElement('button');
-            saveBtn.textContent = 'Opslaan';
-            saveBtn.className = 'add-entry-btn';
-            saveBtn.style.marginRight = '10px';
-            
-            const cancelBtn = document.createElement('button');
-            cancelBtn.textContent = 'Annuleren';
-            cancelBtn.className = 'add-entry-btn';
-            cancelBtn.style.backgroundColor = '#666';
-            
-            // Create a container for the edit form
-            const editContainer = document.createElement('div');
-            editContainer.appendChild(tempTextarea);
-            editContainer.appendChild(saveBtn);
-            editContainer.appendChild(cancelBtn);
-            
-            // Replace the entry content with the edit form
-            const entryElement = document.querySelector(`.logbook-entry[data-index="${index}"]`);
-            const originalContent = entryElement.innerHTML;
-            entryElement.innerHTML = '';
-            entryElement.appendChild(editContainer);
-            
-            // Add event listeners for save and cancel
-            saveBtn.addEventListener('click', function() {
-                const newText = tempTextarea.value.trim();
-                if (newText) {
-                    entries[index].text = newText;
-                    localStorage.setItem('logbookEntries', JSON.stringify(entries));
-                    loadLogEntries();
+            // Add event listener for the add button
+            document.querySelector('.add-entry-btn').addEventListener('click', addLogEntry);
+
+            // Add event listener for archive toggle
+            document.getElementById('toggleArchive').addEventListener('click', () => {
+                showingArchive = !showingArchive;
+                loadLogEntries();
+            });
+
+            // Add event listener for textarea to allow submission with Enter + Ctrl
+            document.getElementById('logEntry').addEventListener('keydown', (e) => {
+                if (e.key === 'Enter' && e.ctrlKey) {
+                    e.preventDefault();
+                    addLogEntry();
                 }
             });
-            
-            cancelBtn.addEventListener('click', function() {
-                entryElement.innerHTML = originalContent;
-                // Reattach event listeners
-                const newEditBtn = entryElement.querySelector('.edit-btn');
-                const newDeleteBtn = entryElement.querySelector('.delete-btn');
-                newEditBtn.addEventListener('click', () => editEntry(index));
-                newDeleteBtn.addEventListener('click', () => deleteEntry(index));
-            });
-        }
-
-        // Delete entry
-        function deleteEntry(index) {
-            const entries = JSON.parse(localStorage.getItem('logbookEntries') || '[]');
-            const entry = entries[index];
-            const entryDate = new Date(entry.date).toLocaleString('nl-NL');
-            
-            if (confirm(`Weet je zeker dat je de entry van ${entryDate} wilt verwijderen?`)) {
-                entries.splice(index, 1);
-                localStorage.setItem('logbookEntries', JSON.stringify(entries));
-                
-                // Animate the removal
-                const entryElement = document.querySelector(`.logbook-entry[data-index="${index}"]`);
-                entryElement.style.transition = 'all 0.3s ease-out';
-                entryElement.style.opacity = '0';
-                entryElement.style.transform = 'translateX(100%)';
-                
-                setTimeout(() => {
-                    loadLogEntries();
-                }, 300);
-            }
-        }
-
-        // Add event listener for the add button
-        document.querySelector('.add-entry-btn').addEventListener('click', addLogEntry);
-
-        // Add event listener for textarea to allow submission with Enter + Ctrl
-        document.getElementById('logEntry').addEventListener('keydown', function(e) {
-            if (e.key === 'Enter' && e.ctrlKey) {
-                e.preventDefault();
-                addLogEntry();
-            }
         });
-
-        // Load entries when the page loads
-        document.addEventListener('DOMContentLoaded', loadLogEntries);
     </script>
 </body>
-</html> 
 </html> 
