@@ -1045,3 +1045,34 @@ canvas {
         padding: 10px;
     }
 }
+
+.professional-link {
+    text-align: center;
+    margin: 20px 0;
+    padding: 15px;
+    background: linear-gradient(135deg, #0078d4, #005a9e);
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    grid-column: span 2;
+}
+
+.gohugo-link {
+    color: white;
+    text-decoration: none;
+    font-size: 18px;
+    font-weight: bold;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    transition: all 0.3s ease;
+}
+
+.gohugo-link:hover {
+    color: #ffd700;
+    transform: translateY(-2px);
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.gohugo-link i {
+    font-size: 20px;
+}
